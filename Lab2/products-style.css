@@ -1,4 +1,4 @@
-
+/* General */
 body {
     width: 800px; 
     margin: 0 auto;
@@ -7,7 +7,7 @@ body {
     background-position: center;
     color:  white;  
 }
-
+/* Typography */
 h1{
     color: white;
     text-align: center;
@@ -16,17 +16,18 @@ h2{
     color: white;
     text-align: center;
 }
-
+/* Form styling */ 
 div{
     border: 5px solid black;
     display: flex;
 }
-
+/* Styling the products display */
 main{
     display: flex;
 flex-flow: row wrap;
 justify-content: space-around;
 }
+/* Styling the products display */ 
 img {
     width: 200px;
     height: 200px;

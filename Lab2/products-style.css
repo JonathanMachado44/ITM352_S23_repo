@@ -27,7 +27,7 @@ main{
 flex-flow: row wrap;
 justify-content: space-around;
 }
-/* Styling the products display */ 
+
 img {
     width: 200px;
     height: 200px;

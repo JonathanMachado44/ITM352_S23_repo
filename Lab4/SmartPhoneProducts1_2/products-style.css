@@ -47,7 +47,11 @@ img {
 body {
     width: 800px; 
     margin: 0 auto;
-    background-image: url(./Images/phone_globe.jpg);
+    background-image: url(./Images/phone_globe.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     background-repeat: no-repeat;
   
     color:  white;  

@@ -7,15 +7,17 @@
     <title>Smartphone Products</title>
    <script> 
    const store_name = "Jonathan Machado";
-   var hits=1;
-   spins=2;
+   var hits=0;
+   var spins=2;
    </script> 
 
 </head>
 <body>
     <header><h1><script>document.write(store_name);</script>'s Used Smartphone Store</h1></header>
     <div><main>
-    <section class="item" id="HTC" onmouseover="this.className='item rotate'" onclick="this.className='item'" >
+    <section class="item" id="HTC" onmouseover="this.className='item rotate'" spins++
+    onclick="this.className='item'" 
+    >
         <h2>HTC</h2>
         <p>&dollar;40.00</p>
         <img src ="http://dport96.github.io/ITM352/morea/080.flow-control-II/HTC.jpg">

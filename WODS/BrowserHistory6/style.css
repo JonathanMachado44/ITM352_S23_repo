@@ -1,0 +1,25 @@
+h1, h2{
+    font-family: 'Oswald', sans;
+}
+ul{
+    list-style-type: none;
+    margin: 0;
+
+}
+li{
+    display: inline;
+}
+body{
+    color: yellow;
+    font-family:'Open Sans', sans;
+    height:50px;
+    width: 100px;
+    background-color: black;
+}
+img{
+    float: left;
+    margin-right: 10px;
+}
+
+    
+

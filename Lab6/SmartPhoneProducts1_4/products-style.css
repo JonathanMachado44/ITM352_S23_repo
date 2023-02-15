@@ -1,0 +1,95 @@
+/* General */
+body {
+    width: 400px; 
+    margin: 0 auto;
+    background-image: url(./Images/phone_globe.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    color:  white;  
+}
+/* Typography */
+h1{
+    color: white;
+    text-align: center;
+}
+h2{
+    color: white;
+    text-align: center;
+}
+/* Form Styling */
+div{
+    border: 5px solid black;
+    display: flex;
+}
+/* Styling the products display */
+main{
+    display: flex;
+flex-flow: row wrap;
+justify-content: space-around;
+}
+img {
+    width: 200px;
+    height: 200px;
+}
+.rotate img {
+    animation: rotation .3s infinite linear; 
+}
+
+@keyframes rotation {}
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+
+/* General */
+body {
+    width: 800px; 
+    margin: 0 auto;
+    background-image: url(./Images/phone_globe.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+  
+    color:  black;  
+}
+/* Typography */
+h1{
+    color: black;
+    text-align: center;
+}
+h2{
+    color: black;
+    text-align: center;
+}
+/* Form Styling */
+div{
+    border: 5px solid black;
+    display: flex;
+}
+/* Styling the products display */
+main{
+    display: flex;
+flex-flow: row wrap;
+justify-content: space-around;
+}
+img {
+    width: 200px;
+    height: 200px;
+}
+.rotate img {
+    animation: rotation .3s infinite linear; 
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+
+}

@@ -1,0 +1,139 @@
+<script>
+    /*
+    This code is an invoice calculator that will compute the grand total of 5 different products that utilize variables to calculate it.
+    */
+  
+    //Quantity Array
+  product_quantities_array = [];
+  let params = (new URL(document.location)).searchParams;
+  params.forEach(function(value,key)
+  {
+    product_quantities_array.push(value);
+  }
+  )
+
+    function isNonNegInt(n) {
+      errors = []; // assume no errors at first
+      if (Number(n) != n) errors.push('Not a number!'); // Check if string is a number value
+      if (n < 0) errors.push('Negative value!'); // Check if it is non-negative
+      if (parseInt(n) != n) errors.push('Not an integer!'); // Check that it is an integer
+      if (errors.length == 0) {
+        return true;
+      }
+      else {
+        let message = errors.join("");
+        return message
+      }
+    }
+  
+    function generate_item_rows(product_quantities_array) {
+      for (i in product_quantities_array) {
+        if (product_quantities_array[i] == 0) 
+        {
+            continue;
+        }
+        else if (isNonNegInt(product_quantities_array[i]!=true)) {//BAD INTEGER
+            let extended_price = 0;
+          document.write(`
+            <tr>
+              <td width="43%">${products[i].brand}</td>
+              <td align="center" width="11%">${product_quantities_array[i]} <div style="color:red;">${isNonNegInt(product_quantities_array[i])}</div> </td>
+              <td width="13%">$${products[i].price}</td>
+              <td width="54%">$${extended_price}</td>
+            </tr>
+              `);
+        }
+        else { //GOOD INTEGER
+          let extended_price = product_quantities_array[i] * products[i].price
+          document.write(`
+            <tr>
+              <td width="43%">${products[i].brand}</td>
+              <td align="center" width="11%">${product_quantities_array[i]}</td>
+              <td width="13%">$${products[i].price}</td>
+              <td width="54%">$${extended_price}</td>
+            </tr>
+              `);
+          subtotal += extended_price
+        }
+      }
+    }
+  
+    //subtotal
+    var subtotal = 0;
+  
+  </script>
+  <html lang="en">
+  
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./products_data.js"></script>
+  </head>
+  
+  <body>
+    <table border="2">
+      <tbody>
+        <tr>
+          <th style="text-align: center;" width="43%">Item</th>
+          <th style="text-align: center;" width="11%">quantity</th>
+          <th style="text-align: center;" width="13%">price</th>
+          <th style="text-align: center;" width="54%">extended price</th>
+        </tr>
+        <script>
+          generate_item_rows(product_quantities_array);
+          //tax
+          var tax_rate = .0575;
+          var sales_tax = subtotal * 0.0575;
+  
+          //shipping
+          if (subtotal <= 50) {
+            shipping = 2;
+          }
+          else if (subtotal <= 100) {
+            shipping = 5;
+          }
+          else {
+            shipping = 0.05 * subtotal;
+          }
+  
+          //total
+          var grand_total = subtotal + sales_tax + shipping;
+        </script>
+        <tr>
+          <td colspan="4" width="100%">&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="text-align: center;" colspan="3" width="67%">Sub-total</td>
+          <td width="54%">$
+            <script>document.write(subtotal)</script>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center;" colspan="3" width="67%"><span style="font-family: arial;">Tax @
+              <script>document.write(tax_rate * 100)</script>%
+            </span></td>
+          <td width="54%">$
+            <script>document.write(sales_tax.toFixed(2))</script>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center;" colspan="3" width="67%"><span style="font-family: arial;">Shipping</td>
+          <td width="54%">$
+            <script>
+              document.write(shipping.toFixed(2));
+            </script>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center;" colspan="3" width="67%"><strong>Total</strong></td>
+          <td width="54%"><strong>$
+              <script>document.write(grand_total.toFixed(2))</script>
+            </strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+  
+  </html>

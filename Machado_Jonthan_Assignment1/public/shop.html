@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <!--w3schools bootstrap https://www.w3schools.com/bootstrap/bootstrap_templates.asp "online store", lab 12 infoserver examples, and reece nagaoka F21 :DD-->
-<script src="./products.json" type="text/javascript"></script>
+<script src="../products.json" type="text/javascript"></script>
 <script>
     function isNonNegInt(q, return_errors = false) {
         errors = []; // assume no errors at first
@@ -84,7 +84,7 @@ if (params.has('quantity')) {
                     <div class="col-sm-4">
                       <div class="panel panel-primary">
                       <div class="panel-heading">${products[i].name}</div>
-                      <div class="panel-body"><img src="${products[i].images}" style="width:100%" class="img-responsive" alt="Image"></div>
+                      <div class="panel-body"><img src="${products[i].image}" style="width:100%" class="img-responsive" alt="Image"></div>
                       <div class="panel-footer">
                         <p><strong>$${products[i].price.toFixed(2)}</strong></p>
                         <p id="quantity[${i}]_label">Quantity:</p>

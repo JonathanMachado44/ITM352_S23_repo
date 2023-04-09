@@ -1,3 +1,6 @@
+// Assignment 1 Server
+//Praise Zenan
+
 //VARIABLE DEFINITIONS USING EXPRESS
 var express = require("express");
 var app = express();
@@ -16,6 +19,21 @@ var myParser = require("body-parser");
 // route all other GET requests to files in public folder
 app.use(express.static(__dirname + "/Public"));
 
+// Validate whether or not inputs are valid
+function isNonNegInt(n) {
+  errors = []; // assume no errors at first
+  if (Number(n) != n) errors.push("Not a number!"); // Check if string is a number value
+  if (n < 0) errors.push("Negative value!"); // Check if it is non-negative
+  if (parseInt(n) != n) errors.push("Not an integer!"); // Check that it is an integer
+  if (errors.length == 0) {
+    return true;
+  } else {
+    let message = errors.join("");
+    return message;
+  }
+}
+
+// Inputted quantities are less than stock
 
 //products_data is sent as a string
 app.get("/products.json", function (request, response) {

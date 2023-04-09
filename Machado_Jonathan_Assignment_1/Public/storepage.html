@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<!-- 
+Assignment1 Products Store Page
+By Jimwell Baja
+Date: 11/5/22
+Desc: Bootstrap Template of a store page, This store page showcases the Apparel we have on display, along with key information such as price, stock, amt sold, images, etc. There is a purchase button on the footer, along with a navbar containing key buttons such as homepage, products page, and more coming. Errors are planned upon with alert messages to guide the user.
+-->
+<script src="../products.json" type="text/javascript"></script>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="style_sheet.css">
+  <title>B.E.S.T. Apparel Shop</title>
+</head>
+
+<script>
+  function isNonNegInt(q, return_errors = false) {
+    errors = []; // assume no errors at first
+    if (q == '') q = 0; // handle blank inputs as if they are 0
+    if (Number(q) != q) errors.push('<font color="red">Not a number!</font>'); // Check if string is a number value
+    else if (q < 0) errors.push('<font color="red">Negative value!</font>'); // Check if it is non-negative
+    else if (parseInt(q) != q) errors.push('<font color="red">Not an integer!</font>'); // Check that it is an integer
+    return return_errors ? errors : (errors.length == 0);
+  }
+
+  function checkQuantityTextbox(the_textbox) {
+    txtboxerror = isNonNegInt(the_textbox.value, true);
+    if (txtboxerror.length == 0) txtboxerror = ['You want:'];
+    if (the_textbox.value.trim() == '') txtboxerror = ['Quantity'];
+    document.getElementById(the_textbox.name + '_label').innerHTML = txtboxerror.join(", ");
+  }
+
+  /* allows for us to create an error alert based off of the results of the server's validataion*/
+  let params = (new URL(document.location)).searchParams;
+
+  console.log("Params=" + params); // shows what the params are in the console
+  //Error Message Popup
+  if (params.has("error")) {
+    let error_message = params.get("error");
+    alert(error_message);
+  }
+
+  if (params.has('quantity')) {
+    var quantities = JSON.parse(params.get('quantity')); //turns string into object
+    // put quantities in quantity textboxes
+    for (i in quantities) {
+      quantity_form[`quantity${i}`].value = quantities[i];
+      checkQuantityTextbox(quantity_form[`quantity${i}`]);
+    }
+  }
+</script>
+
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="storepage.html">Products</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <!-- FOR FUTURE ASSIGNMENTS
+          <li><a href="login.html"><span class="glyphicon glyphicon-user"></span> Account</a></li>
+          <li><a href="cart.html"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+          -->
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <main>
+    <!--Input Form-->
+    <form name="quantity_form" action="/purchase" method="POST">
+      <script>
+        for (i in products) {
+          document.write(`
+        <div class="item" id="productrows">
+            <div class="container">    
+                <div class="row pt-5">
+                    <div class="col-sm-2">
+                      <div class="panel panel-primary">
+                      <div class="panel-heading">${products[i].name}</div>
+                      <div class="panel-body"><img src="${products[i].image}" class="img-responsive" style="width:100%" alt="Image"></div>
+                      <div class="panel-footer">
+                        <p><strong>$${products[i].price.toFixed(2)}</strong></p>
+                        <p id="stock"># In Stock: ${products[i].stock}</p>
+                        <p id="sold"># Sold: ${products[i].sold}</p>
+                        <input id="textbox" type="text" placeholder="Enter Quantity" name="quantity[${i}]";>
+                    </div>
+                  </div>
+        </div>
+        `);
+        }
+      </script>
+  </main>
+</body>
+<!--Purchase Button-->
+<footer class="container-fluid text-center">
+  <h3><input type="submit" class="button" value="Purchase" name="purchase_submit" onclick=""></h3>
+  <p>&copy; B.E.S.T. Apparel Store </p>
+  </form>
+</footer>
+
+</html>

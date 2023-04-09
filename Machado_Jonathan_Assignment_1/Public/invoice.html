@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- this produces an invoice AFTER valid quantities have been typed and the customer is ready to check out-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="../products.json"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+
+    <link href="style_sheet.css" rel="stylesheet">
+
+    <title>Invoice</title>
+</head>
+
+<body>
+    <main>
+        <script>
+
+            /* function section */
+
+            // isNonNegativeInteger tests the input for errors, then returns error messages if any
+            function isNonNegativeInteger(queryString, returnErrors = false) {
+                errors = []; // assume no errors at first
+                if (Number(queryString) != queryString) {
+                    errors.push('Not a number!'); // Check if string is a number value
+                } else {
+                    if (queryString < 0) errors.push('a Negative value!'); // Check if it is non-negative
+                    if (parseInt(queryString) != queryString) errors.push('Not an integer!'); // Check that it is an integer
+                }
+
+                if (returnErrors) { // second parameter:
+                    return errors; // return errors if true
+                } else if (errors.length == 0) {  // else if there are no errors
+                    return true; // then there are no errors, hence true
+                } else {
+                    return false; // else there is an unknown error?
+                }
+            }
+
+            var quantities = []; // declaring empty array 'quantities'
+            let params = (new URL(document.location)).searchParams; // pull params from search URL
+            params.forEach( // for each iterates through all the keys
+                function (value, key) {
+                    quantities.push(value); // pushes the value to quantities array
+                }
+            )
+
+            // generate_item_rows used to write out rows in the table:
+            function generate_item_rows(quantities) {
+                for (let i in quantities) {
+                    if (quantities[i] == 0) { // if quantities = 0, then skip the row
+                        continue;
+                    } else {
+                        let extended_price = quantities[i] * products[i].price
+                        // toFixed added to $ values to preserve cents
+                        document.write(`
+        <tr>
+            <td align="center"><img src="${products[i].image}" class="img-responsive" style="width:15%; height:auto;" alt="Image"></td>
+            <td>${products[i].name}</td>
+            <td align="center">${quantities[i]}</td>
+            <td align="center">$${(products[i].price).toFixed(2)}</td>
+            <td>$${(quantities[i] * products[i].price).toFixed(2)}</td>
+        </tr>
+            `);
+                        subtotal += extended_price
+                    }
+                }
+            }
+
+        </script>
+
+        <h1 class="invoiceheader" style="text-align: center;">Invoice</h1>
+        <table class="invoice-table">
+            <tbody>
+                <thead>
+                    <tr>
+                        <th style="width: 1000px" align="center">Image</th>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Cost of Item</th>
+                        <th>Extended Price</th>
+                    </tr>
+                </thead>
+
+                <script>
+                    // Compute subtotal
+                    var subtotal = 0;
+
+                    // call the function that produces table rows
+                    generate_item_rows(quantities);
+
+                    // Compute tax
+                    var tax_rate = 0.0475;
+                    var tax = tax_rate * subtotal;
+
+                    // Compute shipping
+                    var shipping;
+                    if (subtotal < 10) {
+                        shipping = 5;
+                    }
+                    else if (subtotal >= 10 && subtotal < 25) {
+                        shipping = 2.5;
+                    }
+                    else if (subtotal >= 25) {
+                        shipping = subtotal * 0.12;
+                    }
+
+                    // Compute grand total
+                    var total = tax + subtotal + shipping;
+
+                </script>
+                <!-- table formatting, with some inline css -->
+                <tr>
+                    <td colspan="5" width="100%">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;" colspan="4" width="100%"><strong>Sub-total:</strong></td>
+                    <td width="54%">$
+                        <script>document.write(subtotal.toFixed(2))</script>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;" colspan="4" width="67%"><strong>Tax @ 4.75%:</strong></span></td>
+                    <td width="54%">$
+                        <script>document.write(tax.toFixed(2))</script>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;" colspan="4" width="67%"><strong>Shipping:</strong></td>
+                    <td width="54%">$
+                        <script>document.write(shipping.toFixed(2))</script>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;" colspan="4" width="67%"><strong>Total:</strong></td>
+                    <td width="54%">$
+                        <script>document.write(total.toFixed(2))</script>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;" colspan="5" width="100%">
+                        <b>
+                            <!-- shipping policy -->
+                            Shipping Policy:
+                            <BR>
+                            Orders with subtotals of $0 - $9.99 will be charged $5 for shipping.
+                            <BR>
+                            Orders with subtotals of $10.00 - $24.99 will be charged $2.5 for shipping.
+                            <BR>Orders with subtotals of $25 and over will be charged 12% of the subtotal amount.
+                        </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;" colspan="5" width="100%">
+                        <form action="/storepage.html">
+                            <input type="submit" id="button" value='Return to Store Page' id="Return"></input>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</body>
+
+</html>

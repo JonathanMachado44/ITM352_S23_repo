@@ -14,7 +14,7 @@ products.forEach((products) => {
 var myParser = require("body-parser");
 
 // route all other GET requests to files in public folder
-app.use(express.static(__dirname + "/Public"));
+app.use(express.static(__dirname + "/public"));
 
 // Validate whether or not inputs are valid
 function isNonNegInt(n) {

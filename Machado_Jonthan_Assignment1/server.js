@@ -97,7 +97,7 @@ app.post("/purchase", function (request, response) {
     response.redirect('store.html?error=Invalid%20Quantity,%20Unknown%20Error%20has%20occured');
   } else {
     // If everything is good, redirect to the invoice page.
-    response.redirect('invoice.html?' + ordered);
+    response.redirect("invoice.html?" + ordered);
   };
 });
 

@@ -20,18 +20,35 @@ var myParser = require("body-parser");
 app.use(express.static(__dirname + "/Public"));
 
 // Validate whether or not inputs are valid
-function isNonNegInt(n) {
-  errors = []; // assume no errors at first
-  if (Number(n) != n) errors.push("Not a number!"); // Check if string is a number value
-  if (n < 0) errors.push("Negative value!"); // Check if it is non-negative
-  if (parseInt(n) != n) errors.push("Not an integer!"); // Check that it is an integer
-  if (errors.length == 0) {
-    return true;
-  } else {
-    let message = errors.join("");
-    return message;
+app.post("/purchase", function (request, response) {
+  let input = request.body['quantity']; // assigning req body to var
+
+  // Validate inputted quantities
+  let valid = true;
+  let ordered = "";
+  for (let i in input) { // Iterate over all text boxes in the form.
+    quantity = input[i];
+    if (isNonNegInt(quantity)) { // if quantity is true, added to ordered string
+      // We have a valid quantity. Add to the ordered string.
+      let item = products[i]['name'];
+      products[i].stock -= Number(quantity);
+      products[i].sold = Number(products[i].sold) + Number(quantity);
+      ordered += item + "=" + quantity + "&"; // appears in invoice.html's URL
+    } else {
+      valid = false;
+      break;
+    }
   }
-}
+
+  // If error found, redirect back to the order page, if not, proceed to invoice
+  if (valid) {
+    // If everything is good, redirect to the invoice page.
+    response.redirect('invoice.html?' + ordered);
+  } else {
+    // If there is an error, redirect back to the order page with an appropriate error message.
+    response.redirect('storepage.html?error=Invalid%20Quantity,%20Please%20Fix%20the%20Errors%20in%20Red%20on%20the%20Order%20Page!');
+  }
+});
 
 // Inputted quantities are less than stock
 

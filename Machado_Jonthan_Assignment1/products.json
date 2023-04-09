@@ -2,14 +2,14 @@
     {
         "name": "Cat Food",
         "price": 15.00,
-        "image": "food.jpeg",
+        "image": "https://raw.githubusercontent.com/JonathanMachado44/Assignment1-Images/main/images/food.jpeg",
         "stock": 16,
         "sold": 0
     },
     {
         "name": "Litter",
         "price": 10.00,
-        "image": "litter.avif",
+        "image": "https://raw.githubusercontent.com/JonathanMachado44/Assignment1-Images/main/images/litter.avif",
         "stock": 30,
         "sold": 0
     },
@@ -23,21 +23,21 @@
     {
         "name": "Treats",
         "price": 2.00,
-        "image": "./images/treats.jpeg",
+        "image": "https://raw.githubusercontent.com/JonathanMachado44/Assignment1-Images/main/images/treats.jpeg",
         "stock": 38,
         "sold": 0
     },
     {
         "name": "Toys",
         "price": 20.00,
-        "image": "toys.webp",
+        "image": "https://raw.githubusercontent.com/JonathanMachado44/Assignment1-Images/main/images/toys.webp",
         "stock": 22,
         "sold": 0
     },
     {
         "name": "Cat Brush",
         "price": 20.00,
-        "image": "brush.avif",
+        "image": "https://raw.githubusercontent.com/JonathanMachado44/Assignment1-Images/main/images/brush.avif",
         "stock": 22,
         "sold": 0
     }

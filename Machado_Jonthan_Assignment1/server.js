@@ -1,6 +1,4 @@
-// Based on Momoka Michimoto's (Fall 2021) server.js 
-
-// Determines valid quantity (If "q" is a negative interger)
+// If valid quantity
 function isNonNegInt(q, return_errors = false) {
     errors = []; // assume no errors at first
     if (q == '') q = 0; // handle blank inputs as if they are 0
@@ -10,7 +8,7 @@ function isNonNegInt(q, return_errors = false) {
     return return_errors ? errors : (errors.length == 0);
 };
 
-// Determines input in textbox
+//Textbox Input
 function checkQuantityTextbox(qtyTextbox) {
     errs = isNonNegInt(qtyTextbox.value, true);
     if (errs.length == 0) errs = ['Want to purchase: '];
@@ -87,7 +85,7 @@ function checkQuantityTextbox(qtyTextbox) {
 // Routing 
     app.get("/products.json", function(request, response, next)
         {
-            response.type('.js');
+            response.type(".json");
             var products_str = `var products = ${JSON.stringify(products)};`;
             response.send(products_str);
         });

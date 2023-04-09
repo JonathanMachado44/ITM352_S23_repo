@@ -1,53 +1,80 @@
-// To access code from node packages
-var express = require('express'); // To load express module
-var app = express(); // To load express 'app'
-var myParser = require("body-parser"); // To load and cache body parser module
-var data = require('./public/product_data.js');
-var products = data.products; // To load products.json file and set to variable 'products'
-var fs = require('fs');
-const queryString = require('query-string'); // Read variable 'queryString' as the loaded query-string module
+var express = require('express');
+var app = express();
 
-app.use(express.static('./public')); // root in the 'public' directory so that express will serve up files from public
-app.use(myParser.urlencoded({ extended: true })); // puts products in the body
+// Import and assign product information from products_data
+var items_array = require("./products_data.json");
 
-// Response when /process_form is requested or purchase form is submitted
-app.post("/process_quantity_form", function (request, response) { // accesses invoice page
-    let POST = request.body; // products POSTed in body
+// Importing parser and querystring
+var myParser = require("body-parser");
+const queryString = require('querystring');
 
-    // Check if quantities are non-negative integers 
-    if (typeof POST['submitPurchase'] != 'undefined') {
-        var hasvalidquantities = true; // creating a variable assuming that it is true
-        var hasquantities = false
-        for (i = 0; i < products.length; i++) {
-            
-                        qty=POST[`quantity${i}`];
-                        hasquantities=hasquantities || qty>0; // If it has a value larger than 0 then it is valid
-                        hasvalidquantities=hasvalidquantities && isNonNegInt(qty);    // if it is both a quantity over 0 and is valid    
-        } 
-        // if all quantities are valid, will generate the invoice
-        const stringified = queryString.stringify(POST);
-        if (hasvalidquantities && hasquantities) {
-            response.redirect("./invoice.html?"+stringified); // using the invoice.html + data from string
-        }  
-        else { 
-            response.send('Enter a valid quantity!') 
-        }
-    }
-});
+// Taken from lab 13
+app.use(myParser.urlencoded({ extended: true })); 
 
-//repeats isNonNegInt function from the products_display.html file 
-function isNonNegInt(stringToCheck, returnErrors = false) {
-    errors = []; // assume that quantity data is valid 
-    if (stringToCheck == "") { stringToCheck = 0; }
-    if (Number(stringToCheck) != stringToCheck) errors.push('Not a number!'); //check if the string is a number
-    if (stringToCheck < 0) errors.push('Negative value!'); //check if value is a positive
-    if (parseInt(stringToCheck) != stringToCheck) errors.push('Not an integer!'); //check if value is an integer
-    return returnErrors ? errors : (errors.length == 0);
+// Validate whether or not inputs are valid
+function isNonNegInt(q, returnErrors = false){
+   errors = [];
+   if (q == "") { q = 0; }
+   if (Number(q) != q) { errors.push('Not a Number!'); } //String is not a number, error Not a Number
+   if (q < 0) { errors.push('Negative value!'); } //String is negative value, error Negative Value
+   if (parseInt(q) != q) { errors.push('Not an Integer!');} //String is not an integer, error Not an Integer
+   return returnErrors ? errors : (errors.length == 0);
 }
 
+// Inputted quantities are less than stock
+function validatestock_quantity(quantity_input, stock_quantity){
+   if (quantity_input > stock_quantity){
+      return false;
+   }
+}
+
+// Routing 
+app.use(myParser.urlencoded({extended : true}));
+app.post("/purchase", function(request, response) {
+   let POST = request.body; // assigning req body to var
+   
+   // Validate inputted quantities
+   if (typeof POST['purchase_submit'] != 'undefined') { // validating quantities, and valid quantities
+      var hasValidQuantities = true;
+      var hasQuantities = false;
+      var stock_quantity = true;
+
+      // Check to see that valid quantities are in stock
+      for (i = 0; i < items_array.length; i++){
+      quantity = POST[`quantity${i}`];
+      input_Quantities = quantity > 0;
+      valid_Quantities = hasValidQuantities && isNonNegInt(quantity);
+      stock_quantity = validatestock_quantity(quantity, items_array[i]['quantity_available']) && isNonNegInt(quantity);
+      }
+
+      // Make into queryString
+      const stringified = queryString.stringify(POST); 
+
+      if (hasQuantities && hasValidQuantities && stock_quantity) {
+            response.redirect("./invoice.html?" + stringified); // Send to invoice page
+      } else {
+       response.redirect("./products_display.html?" + stringified); // Send back to store
+      }
+   }
+   console.log(request.body);
+})
+
+
+
+
+
+
+
+
+
+// monitor all requests
 app.all('*', function (request, response, next) {
-    console.log(request.method + ' to ' + request.path); // Write in the console the request method and its path
-    next(); //continues
+   console.log(request.method + ' to ' + request.path);
+   next();
 });
 
-app.listen(8080, () => console.log(`listening on port 8080`)); //run the server on port 8080 and show it in the console
+
+// route all other GET requests to files in public 
+app.use(express.static(__dirname + '/public'));
+
+// start server

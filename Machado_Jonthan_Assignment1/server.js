@@ -78,7 +78,7 @@ function checkQuantityTextbox(qtyTextbox) {
         else {
             let errors_obj = { "errors": JSON.stringify(errors) };
             console.log(qs.stringify(quantity_object));
-            response.redirect('./store.html?' + qs.stringify(quantity_object) + '&' + qs.stringify(errors_obj));
+            response.redirect('./shop.html?' + qs.stringify(quantity_object) + '&' + qs.stringify(errors_obj));
         }
     });
 

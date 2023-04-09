@@ -19,19 +19,15 @@ var myParser = require("body-parser");
 // route all other GET requests to files in public folder
 app.use(express.static(__dirname + "/Public"));
 
-// Validate whether or not inputs are valid
-function isNonNegInt(n) {
+// Determines valid quantity (If "q" is a negative interger)
+function isNonNegInt(q, return_errors = false) {
   errors = []; // assume no errors at first
-  if (Number(n) != n) errors.push("Not a number!"); // Check if string is a number value
-  if (n < 0) errors.push("Negative value!"); // Check if it is non-negative
-  if (parseInt(n) != n) errors.push("Not an integer!"); // Check that it is an integer
-  if (errors.length == 0) {
-    return true;
-  } else {
-    let message = errors.join("");
-    return message;
-  }
-}
+  if (q == '') q = 0; // handle blank inputs as if they are 0
+  if (Number(q) != q) errors.push('<b><font color="red">Not a number!</font></b>'); // Check if string is a number value
+  if (q < 0) errors.push('<b><font color="red">Negative value!</font></b>'); // Check if it is non-negative
+  if (parseInt(q) != q) errors.push('<b><font color="red">Not an integer!</font></b>'); // Check that it is an integer
+  return return_errors ? errors : (errors.length == 0);
+};
 
 // Inputted quantities are less than stock
 

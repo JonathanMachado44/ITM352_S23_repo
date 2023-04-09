@@ -15,14 +15,14 @@
     },
     {
         "name": "Litter Box",
-        "price": 3.00,
+        "price": 15.00,
         "image": "https://raw.githubusercontent.com/JonathanMachado44/Assignment1-Images/main/images/box.jpeg",
         "stock": 61,
         "sold": 0
     },
     {
         "name": "Treats",
-        "price": 2.00,
+        "price": 10.00,
         "image": "https://raw.githubusercontent.com/JonathanMachado44/Assignment1-Images/main/images/treats.jpeg",
         "stock": 38,
         "sold": 0
@@ -36,7 +36,7 @@
     },
     {
         "name": "Cat Brush",
-        "price": 20.00,
+        "price": 15.00,
         "image": "https://raw.githubusercontent.com/JonathanMachado44/Assignment1-Images/main/images/brush.avif",
         "stock": 22,
         "sold": 0

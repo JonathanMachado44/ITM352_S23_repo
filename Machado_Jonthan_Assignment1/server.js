@@ -1,80 +1,97 @@
-var express = require('express');
-var app = express();
+// Determines valid quantity (If "q" is a negative interger)
+function isNonNegInt(q, return_errors = false) {
+    errors = []; // assume no errors at first
+    if (q == '') q = 0; // handle blank inputs as if they are 0
+    if (Number(q) != q) errors.push('<b><font color="red">Not a number!</font></b>'); // Check if string is a number value
+    if (q < 0) errors.push('<b><font color="red">Negative value!</font></b>'); // Check if it is non-negative
+    if (parseInt(q) != q) errors.push('<b><font color="red">Not an integer!</font></b>'); // Check that it is an integer
+    return return_errors ? errors : (errors.length == 0);
+};
 
-// Import and assign product information from products_data
-var items_array = require("./products_data.json");
+// Determines input in textbox
+function checkQuantityTextbox(qtyTextbox) {
+    errs = isNonNegInt(qtyTextbox.value, true);
+    if (errs.length == 0) errs = ['Want to purchase: '];
+    if (qtyTextbox.value.trim() == '') errs = ['Type desired quantity: '];
+    document.getElementById(qtyTextbox.name + '_label').innerHTML = errs.join('<font color="red">, </font>');
+};
 
-// Importing parser and querystring
-var myParser = require("body-parser");
-const queryString = require('querystring');
 
-// Taken from lab 13
-app.use(myParser.urlencoded({ extended: true })); 
+// Load Product Data
+    var products = require(__dirname + '/products.json');
+    // Initialize Quantity
+        products.forEach((prod,i)=>{prod.quantity_available = products[i].quantity_available})
 
-// Validate whether or not inputs are valid
-function isNonNegInt(q, returnErrors = false){
-   errors = [];
-   if (q == "") { q = 0; }
-   if (Number(q) != q) { errors.push('Not a Number!'); } //String is not a number, error Not a Number
-   if (q < 0) { errors.push('Negative value!'); } //String is negative value, error Negative Value
-   if (parseInt(q) != q) { errors.push('Not an Integer!');} //String is not an integer, error Not an Integer
-   return returnErrors ? errors : (errors.length == 0);
-}
+// Load Packages
 
-// Inputted quantities are less than stock
-function validatestock_quantity(quantity_input, stock_quantity){
-   if (quantity_input > stock_quantity){
-      return false;
-   }
-}
+    // Load Express Package
+        var express = require('express');
+        var app = express();
+
+    // Load Body-Parser Package
+        var parser = require("body-parser");
+    
+    // Load QueryString Package
+        const qs = require('querystring');
+
+// Get Body
+    app.use(parser.urlencoded({extended: true}));
+
+// Monitor all requests
+
+    app.all('*', function (request, response, next) {
+    console.log(request.method + ' to ' + request.path);
+    next();
+    });
+
+// Process purchase request (validate quantities, check quantity available)
+
+    app.post("/purchase", function(request, response, next) {
+        var quantities = request.body['quantity'];
+        var errors = {};
+        var available_quantity = false;
+
+        for (i in quantities) {
+            if (isNonNegInt(quantities[i]) == false) {
+                errors['quantity_' + i] = `Submit a valid quantity for ${products[i].item}!`
+            }
+            if (quantities[i] > 0) {
+                available_quantity = true;
+            }
+            if (quantities[i] > products[i].quantity_available) {
+                errors['available_' + i] = `We don't have ${(quantities[i])} ${products[i].item} ready to ship, order less or check our stock later!`
+            }
+        }
+
+    if (!available_quantity) {
+        errors['No quantities inputted'] = `Please enter a quantity for steaks!`;
+    }
+
+    let quantity_object = { "quantity" : JSON.stringify(quantities)};
+    console.log(Object.keys(errors));
+        if (Object.keys(errors).length == 0) {
+        for (i in quantities) {
+            products[i].quantity_available -= Number(quantities[i]);
+        }
+        response.redirect('./invoice.html?' + qs.stringify(quantity_object));
+    }
+        else {
+            let errors_obj = { "errors": JSON.stringify(errors) };
+            console.log(qs.stringify(quantity_object));
+            response.redirect('./store.html?' + qs.stringify(quantity_object) + '&' + qs.stringify(errors_obj));
+        }
+    });
 
 // Routing 
-app.use(myParser.urlencoded({extended : true}));
-app.post("/purchase", function(request, response) {
-   let POST = request.body; // assigning req body to var
-   
-   // Validate inputted quantities
-   if (typeof POST['purchase_submit'] != 'undefined') { // validating quantities, and valid quantities
-      var hasValidQuantities = true;
-      var hasQuantities = false;
-      var stock_quantity = true;
+    app.get("/products.json", function(request, response, next)
+        {
+            response.type('.js');
+            var products_str = `var products = ${JSON.stringify(products)};`;
+            response.send(products_str);
+        });
+    
+// Route all other GET requests to files in public 
+    app.use(express.static(__dirname + '/public'));
 
-      // Check to see that valid quantities are in stock
-      for (i = 0; i < items_array.length; i++){
-      quantity = POST[`quantity${i}`];
-      input_Quantities = quantity > 0;
-      valid_Quantities = hasValidQuantities && isNonNegInt(quantity);
-      stock_quantity = validatestock_quantity(quantity, items_array[i]['quantity_available']) && isNonNegInt(quantity);
-      }
-
-      // Make into queryString
-      const stringified = queryString.stringify(POST); 
-
-      if (hasQuantities && hasValidQuantities && stock_quantity) {
-            response.redirect("./invoice.html?" + stringified); // Send to invoice page
-      } else {
-       response.redirect("./products_display.html?" + stringified); // Send back to store
-      }
-   }
-   console.log(request.body);
-})
-
-
-
-
-
-
-
-
-
-// monitor all requests
-app.all('*', function (request, response, next) {
-   console.log(request.method + ' to ' + request.path);
-   next();
-});
-
-
-// route all other GET requests to files in public 
-app.use(express.static(__dirname + '/public'));
-
-// start server
+// Start server
+    app.listen(8080, () => console.log(`listening on port 8080`));

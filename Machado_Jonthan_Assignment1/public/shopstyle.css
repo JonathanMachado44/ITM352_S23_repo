@@ -1,0 +1,75 @@
+body {
+    background: rgb(250, 233, 233);
+}
+/* for logo text on left part of header*/
+#logotext {
+        color: rgb(250, 233, 233);
+        padding: 15px 15px 15px 0px;
+}
+.panel-primary>.panel-heading {
+        background-color: rgb(203, 222, 243);
+    }
+.panel-body img {  
+        width: 170px;
+        height: 250px;       
+       /* display: block;*/
+        bottom: 0px;  
+        object-fit: scale-down;  
+ 
+}
+body>.item>.row {
+        display: block;
+        background-size: 750px 200px;
+        margin: 15px;
+        float: left;
+        padding-left: 150px;
+        padding-top: 10px;
+        max-width: 50px;
+        height: 750px;
+}
+.button {
+        background-color: white;
+        bottom: 80px;
+        left: 1050px;
+        padding: 12px 28px;
+        margin-left: 15px;
+
+}
+.button:hover {
+        background-color: #e7e7e7;
+}
+
+.panel-footer {
+        margin-bottom: 10px;
+}
+/* styling the item headers*/
+.panel-primary>.panel-heading {
+        background-color: rgb(178, 209, 245);
+}
+.panel-heading {
+        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+        font-size: 15px;
+        text-align: center;
+}
+/* Add a hover effect (blue shadow) */
+img:hover {
+            box-shadow: 0 0 5px 1px black;
+}
+    
+/* Remove the navbar's default rounded borders and increase the bottom margin */ 
+.navbar {
+            margin-bottom: 50px;
+            border-radius: 0;
+}
+         
+/* Add a gray background color and some padding to the footer */
+.footer {
+        background-color: #f2f2f2;
+        text-align: center;
+        padding-top: 20px;
+        padding-bottom: 0px;
+        width: 100%;
+
+        left: 0;
+        bottom: 0;
+}

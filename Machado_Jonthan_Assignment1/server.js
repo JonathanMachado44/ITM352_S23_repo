@@ -85,7 +85,7 @@ function checkQuantityTextbox(qtyTextbox) {
 // Routing 
     app.get("/products.json", function(request, response, next)
         {
-            response.type('.js');
+            response.type('.json');
             var products_str = `var products = ${JSON.stringify(products)};`;
             response.send(products_str);
         });

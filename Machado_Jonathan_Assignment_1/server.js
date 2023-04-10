@@ -1,6 +1,3 @@
-// Assignment 1 Server
-//Praise Zenan
-
 //VARIABLE DEFINITIONS USING EXPRESS
 var express = require("express");
 var app = express();
@@ -111,8 +108,6 @@ app.post("/purchase", function (request, response) {
     response.redirect('storepage.html?error=Invalid%20Quantity,%20No%20Quantities%20Selected!%20Please%20type%20in%20values!');
   } else if (!valid) { // quantity is "Not a Number, Negative Value, or not an Integer", pops up alert
     response.redirect('storepage.html?error=Invalid%20Quantity,%20Please%20Fix%20the%20Errors%20in%20Red%20on%20the%20Order%20Page!');
-  } else if (!validstock) { // Existing stock is less than desired quantity, pops up alert
-    response.redirect('storepage.html?error=Invalid%20Quantity,%20Requested%20Quantity%20Exceeds%20Stock');
   } else if (hell) { // textbox has gone missing? or some other error, pops up alert
     response.redirect('storepage.html?error=Invalid%20Quantity,%20Unknown%20Error%20has%20occured');
   } else {

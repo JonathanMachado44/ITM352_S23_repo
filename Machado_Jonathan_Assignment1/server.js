@@ -1,4 +1,4 @@
-//Based on momoka1926's server.js
+//Based on blakesaari's server.js
 // First, require the necessary modules
 var express = require('express');
 var app = express();

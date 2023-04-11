@@ -1,0 +1,37 @@
+[
+    {
+        "name": "Cat Food",
+        "price": 25,
+        "image": "food.jpg"
+        
+    },
+    {
+        "name": "Litter",
+        "price": 20,
+        "image": "catlitter.jpg"
+        
+    },
+    {
+        "name": "Treats",
+        "price": 15,
+        "image": "treats.jpg"
+        
+    },
+    {
+        "name": "Litter Box",
+        "price": 20,
+        "image": "box.jpg"
+        
+    },
+    {
+        "name": "Brush",
+        "price": 10,
+        "image": "catbrush.jpg" 
+    },
+
+    {
+        "name": "Toy Set",
+        "price": 20,
+        "image": "toys.jpg" 
+    }
+]

@@ -3,37 +3,37 @@
         "item": "Cat Food",
         "price": 25,
         "image": "./images/food.jpg",
-        "quantity_available": 19
+        "quantity_available": 20
     },
     {
         "item": "Litter",
         "price": 20,
         "image": "./images/catlitter.jpg",
-        "quantity_available": 4
+        "quantity_available": 20
     },
     {
         "item": "Treats",
         "price": 15,
         "image": "./images/treats.jpg",
-        "quantity_available": 5
+        "quantity_available": 20
     },
     {
         "item": "Litter Box",
         "price": 20,
         "image": "./images/box.jpg",
-        "quantity_available": 10
+        "quantity_available": 20
     },
     {
         "item": "Brush",
         "price": 20,
         "image": "./images/catbrush.jpg",
-        "quantity_available": 10
+        "quantity_available": 20
     },
     {
         "item": "Toy Set",
         "price": 20,
         "image": "./images/toys.jpg",
-        "quantity_available": 10
+        "quantity_available": 20
     }
     
 ]

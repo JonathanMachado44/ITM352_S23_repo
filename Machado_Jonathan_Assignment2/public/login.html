@@ -1,94 +1,92 @@
+<!-- Jonathan Machado (Login Page for Assignment2)-->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title of the page -->
     <title>Login</title>
+    <!-- Inline CSS for styling -->
     <style>
         body {
             text-align: center;
             background: #e39c8a;
         }
         h1 {
-        text-align: center;
-    }
-
-    h2 {
-        text-align: center;
-    }
-
-    img {
-        border-radius: 70%;
-    }
-</style>
-<script src="/user_data.js" type="json"></script>
-<script>
-    window.onload = function () {
-        let params = (new URL(document.location)).searchParams;
-        if (params.has('login_err')) {
-            alert(params.get('login_err'));
+            text-align: center;
         }
-        if (params.has('email')) {
-            email.value = params.get('email');
+        h2 {
+            text-align: center;
         }
-    }
-</script>
+        img {
+            border-radius: 70%;
+        }
+        .button {
+            height: 40px;
+            width: 150px;
+            font-size: 18px;
+            padding: 10px 20px;
+        }
+    </style>
+    <!-- JavaScript file to handle user data -->
+    <script src="/user_data.js" type="json"></script>
+    <script>
+        // JavaScript code to handle on page load events
+        window.onload = function () {
+            // Extracting URL parameters
+            let params = (new URL(document.location)).searchParams;
+            // Displaying login error message if present in URL parameters
+            if (params.has('login_err')) {
+                alert(params.get('login_err'));
+            }
+            // Setting email value from URL parameters if present
+            if (params.has('email')) {
+                email.value = params.get('email');
+            }
+        }
+    </script>
 </head>
+
 <body>
-  <div>
-
-    <a href="index.html">Home</a>
-    <a href="shop.html">Products</a>
-</div>
-
-<section class="vh-100 gradient-custom">
-    <div class="container py-5 h-100">
-        <div class="row d-flex align-items-center h-100 gradient-custom-3">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                    <div class="card-body p-5 text-center">
-
-                        <div class="mb-md-5 mt-md-4 pb-5">
-
-                            <form name="process_login" action="/process_login" method="POST">
-                                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                                <p class="text-white-50 mb-5">Please enter your email and password!</p>
-
-                                <div class="form-outline form-white mb-4">
-                                    <input type="email" name="email" id="email"
-                                        class="form-control form-control-lg" />
-                                    <label class="form-label" id="email_label" for="email">Email</label>
-                                </div>
-
-                                <div class="form-outline form-white mb-4">
-                                    <input type="password" name="password" id="password"
-                                        class="form-control form-control-lg" />
-                                    <label class="form-label" id="password_label" for="password">Password</label>
-                                </div>
-                                <p class="mb-5 pb-lg-2"><a class="text-white-50"
-                                        onclick="window.location.href = 'update_info.html' + document.location.search;">Forgot
-                                        password?</a></p>
-
-                                <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-primary btn-block" value="login"
-                                        name="login">Log in</button>
-                                </div>
-                        </div>
-
-                        <div>
-                            <p class="mb-0">Don't have an account? <a href="registration.html"
-                                    class="text-white-50 fw-bold">Sign Up</a>
-                            </p>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div>
+        <!-- Navigation links -->
+        <h3>
+            <a href="index.html">Home</a>
+            <a href="shop.html">Products</a>
+        </h3>
     </div>
-</section>
+    <!-- Login form section -->
+    <section class="vh-100 gradient-custom">
+        <form name="process_login" action="/process_login" method="POST">
+            <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+            <p class="text-white-50 mb-5">Please enter your email and password!</p>
+            <!-- Email input field -->
+            <div class="form-outline form-white mb-4">
+                <input type="email" name="email" id="email" class="form-control form-control-lg" />
+                <label class="form-label" id="email_label" for="email">Email</label>
+            </div>
+            <!-- Password input field -->
+            <div class="form-outline form-white mb-4">
+                <input type="password" name="password" id="password" class="form-control form-control-lg" />
+                <label class="form-label" id="password_label" for="password">Password</label>
+            </div>
+            <!-- Forgot password link -->
+            <p class="mb-5 pb-lg-2"><a class="text-white-50"
+                    onclick="window.location.href = 'update_info.html' + document.location.search;">Forgot
+                    password?</a></p>
+            <!-- Submit button -->
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="button" value="login" name="login">Log in</button>
+            </div>
+        </form>
+        <!-- Sign up link -->
+        <div>
+            <p class="mb-0">Don't have an account? <a href="registration.html" class="text-white-50 fw-bold">Sign
+                    Up</a>
+            </p>
+        </div>
+   
+    </section>
 </body>
-
 </html>

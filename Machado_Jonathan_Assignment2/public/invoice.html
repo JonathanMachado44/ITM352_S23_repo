@@ -1,26 +1,19 @@
-<!--AUTHOR: TIFFANY YOUNG S22-->
-<!-- This file will display an invoice based off of https://www.bootdey.com/snippets/view/Invoice-with-ribbon,
-   w3schoools bootstraps https://www.w3schools.com/bootstrap/bootstrap_templates.asp "online store",
-    and reece nagaoka f21 and momoka michimoto (and looked at li xinfei for inspiration) -->
-    <script src="./products.js" type="text/javascript"></script>
-    <script src="/user_data.json" type="json"></script>
-    
-    <script>
-      let params = (new URL(document.location)).searchParams; //takes data from querystring
-      var quantities = []; //gets quantities to store
-      if (params.has('quantity')) {
-        quantities = JSON.parse(params.get(`quantity`)); //params gets quantity from purchase, parses string into a json object
-      }
-    //name is wrong, back to login, function below and line 64-68 borrowed from li xinfei.
-      //var email = [];
-      if (params.has('fullname')) {
-        var fullname = params.get(`fullname`);
-      } else {
-        window.location.href = "./login.html";
-      }
-    </script>
-    
-    
+ <!-- Jonathan Machado (invoice for Assignment2)-->
+  <script src="./products.js" type="text/javascript"></script>
+<script src="/user_data.json" type="json"></script>
+<script>
+  // Get URL parameters
+  let params = (new URL(document.location)).searchParams;
+  var quantities = []; // Array to store quantities
+  if (params.has('quantity')) {
+    quantities = JSON.parse(params.get(`quantity`)); // Parse quantity from URL parameter and store in quantities array
+  }
+  if (params.has('fullname')) {
+    var fullname = params.get(`fullname`); // Get fullname from URL parameter
+  } else {
+    window.location.href = "./login.html"; // Redirect to login page if fullname is not present in URL parameter
+  }
+</script>
     <!DOCTYPE html>
     <html lang="en">
     
@@ -29,7 +22,8 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-      <title>Invoice || Tiffany's Boba Shop</title>
+      <title>Invoice</title>
+      <!-- Add CSS styles -->
       <style>
         body {
             text-align: center;
@@ -46,37 +40,31 @@
         img {
             border-radius: 70%;
         }
+        .button {
+  
+  height: 40px; 
+  width: 150px; 
+  font-size: 18px;
+  padding: 10px 20px;
+}
     </style>
     </head>
-    
     <body>
-      
-    
-      <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          </div>
+      <!-- Add Navbar -->
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-              <li id="logotext">Tiffany's Boba Shop</li>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="shop.html">Products</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="update_info.html"><span class="glyphicon glyphicon-user"></span> Account</a></li>
-              <li><a href="cart.html"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+              <h3>
+              <a href="index.html">Home</a>
+            <a href="shop.html">Products</a>
+              <a href="update_info.html"> Account</a>
+            </h3>
             </ul>
           </div>
         </div>
       </nav>
-      <script> //borrowed from li xinfei F21 | gets full name and displays it
+      <script>
           if (fullname != 'undefined' && fullname != '') {
-          document.write(`<div class="center"><h4><b>Mahalo, ${fullname}!</b><h4></div>`)
+          document.write(`<div class="center"><h4><b>Thanks, ${fullname}!</b><h4></div>`)
         }
       </script>
       <table class="body-wrap">
@@ -120,51 +108,55 @@
                                     }
                                   };
                                   // Compute tax
-                                  var tax_rate = 0.0475;
+                                  var tax_rate = 0.05;
                                   var tax = tax_rate * subtotal;
     
                                   // Compute shipping
-                                  if (subtotal <= 10) {
-                                    shipping = 2;
+                                  if (subtotal <= 49.99) {
+                                    shipping = 3;
                                   }
-                                  else if (subtotal <= 30) {
-                                    shipping = 5;
+                                  else if (subtotal <= 99.99) {
+                                    shipping = 6;
                                   }
                                   else {
-                                    shipping = 0.05 * subtotal; // 5% of subtotal
+                                    shipping = 0.07 * subtotal; 
                                   }
                                   // Compute grand total
                                   var grand_total = subtotal + tax + shipping;
                                 </script>
                               </tbody>
                             </table>
-                            <div class="col-xs-6 text-right pull-right invoice-total">
-                              <p>Subtotal : $
-                                <script>document.write(subtotal.toFixed(2));</script>
-                              </p>
-                              <p>Tax @ 4.75% : $
-                                <script>document.write(tax.toFixed(2));</script>
-                              </p>
-                              <p>Delivery : $
-                                <script>document.write(shipping.toFixed(2));</script>
-                              </p>
-                              <p><strong>Grand Total : $
-                                  <script>document.write(grand_total.toFixed(2));</script>
-                                </strong> </p>
-                              <div class="total text-left">
-                                <br>
+                            <script>document.write(`
+                              <!-- Table rows for subtotal -->
+                              <tr>
+                                  <td colspan="3" style="text-align: right;">Subtotal:</td>
+                                  <td style="text-align: center;">$${subtotal.toFixed(2)}</td>
+                                </tr>
+      
+                                <!-- Table rows for tax -->
+                                <tr>
+                                  <td colspan="3" style="text-align: right;">Tax:</td>
+                                  <td style="text-align: center;">$${tax.toFixed(2)}</td>
+                                </tr>
+      
+                                <!-- Table rows for shipping -->
+                                <tr>
+                                  <td colspan="3" style="text-align: right;">Shipping:</td>
+                                  <td style="text-align: center;">$${shipping.toFixed(2)}</td>
+                                </tr>
+      
+                                <!-- Table rows for total -->
+                                <tr>
+                                  <td colspan="3" style="text-align: right;"><strong>Total:</strong></td>
+                                  <td style="text-align: center;"><strong>$${grand_total.toFixed(2)}</strong></td>
+                                </tr>
+                                `)
+                              </script>
+                              <div style="border: solid thin">
                                 <b>
-                                  <p>OUR DELIVERY POLICY IS :</p></b>
-                                  <p>A subtotal $0 - $9.99 will be $2 fee</p> 
-                                  <p>A subtotal $10 - $29.99 will be $5 fee</p>
-                                  <p>Subtotals over $30 will be charged 5% of the subtotal amount </p>
-                                  <p>All orders will not be able to be cancelled after order confirmation. <br> If you feel your experience with us has been unsatisfactory, contact us at itm352@hawaii.edu</p>
-                                
-                              </div>
-    </body>
-    <div class="footer">
-      <p>&copy; Tiffany Young 2022</p>
-      <br>
-    </div>
+                                  OUR SHIPPING POLICY IS:A subtotal $0 - $49.99 will be $3 shipping A subtotal $50 - $99.99 will be $6 shipping Subtotals over $100 will be charged 7% of the subtotal amount
+                                </b>
+                            </div>
+                                 </body>
     
     </html>

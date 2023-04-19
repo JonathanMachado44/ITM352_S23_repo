@@ -67,12 +67,19 @@ window.onload = function () {
         width: 300px;
         box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
     }
+.button {
+    display       : inline-block;
+    font-size     : 13pt;        
+    padding       : 12px 44px;   
+    background    : rgba(4, 3, 2, 0.97);    
+    color         : #f7efef;      
+  }
 </style>
 </head>
 <body>
   <!-- Home/Products -->
   <div id="Navbar">
-      <a href="#">Home</a>
+      <a href="index.html">Home</a>
       <a href="#products">Products</a>
   </div>
   <!-- For Products -->
@@ -101,7 +108,7 @@ window.onload = function () {
                 </script>
             </div>
             <!--Buy -->
-            <input type="submit" value="Buy">
+            <input type="submit" class="button" value="Buy">
         </form>
     </h1>
 </main>

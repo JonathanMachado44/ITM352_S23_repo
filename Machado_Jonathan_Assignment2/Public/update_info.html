@@ -1,0 +1,85 @@
+<!--AUTHOR: Jonathan Machado-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update User Info</title>
+  <style>
+    body {
+      text-align: center;
+      background: #e39c8a;
+    }
+
+    h1,
+    h2 {
+      text-align: center;
+    }
+
+    img {
+      border-radius: 70%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="myNavbar">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">Products</a></li>
+  </div>
+  <section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row d-flex align-items-center h-100 gradient-custom-3">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card bg-dark text-white" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+
+              <div class="mb-md-5 mt-md-4 pb-5">
+                <form name="newpw" action="./newpw" method="POST">
+                  <h2 class="fw-bold mb-2 text-uppercase">Edit your Password</h2>
+                  <p class="text-white-50 mb-5">Please enter your email and password!</p>
+
+                  <div class="form-outline form-white mb-4">
+                    <input placeholder="Email" type="email" name="email" id="email" class="form-control form-control-lg" />
+                    <label class="form-label" id="email_label" for="email"></label>
+                  </div>
+
+                  <div class="form-outline form-white mb-4">
+                    <input placeholder="Password" type="password" name="password" id="password" class="form-control form-control-lg" />
+                    <label class="form-label" id="password_label" for="password"></label>
+                  </div>
+
+                  <div class="form-outline form-white mb-4">
+                    <input placeholder="New Password Here" type="password" name="newpassword" id="newpassword" class="form-control form-control-lg" />
+                    <label class="form-label" id="newpassword_label" for="newpassword"></label>
+                  </div>
+
+                  <div class="form-outline form-white mb-4">
+                    <input placeholder="Repeat New Password" type="password" name="repeatnewpassword" id="repeatnewpassword"
+                      class="form-control form-control-lg" />
+                    <label class="form-label" id="repeatnewpassword_label" for="repeatnewpassword"></label>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary btn-block" id="change_password"
+                      name="change_password">Change Password</button>
+                  </div>
+                </form>
+              </div>
+
+              <div>
+                <p class="mb-0">Don't have an account? <a href="registration.html" class="text-white-50 fw-bold">Sign Up</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+
+</html>

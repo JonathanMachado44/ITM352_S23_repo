@@ -1,4 +1,1 @@
-
- 
-
-{"dport":{"fullname":"Dan Port","password":"portspassword","email":"dport@hawaii.edu"},"kazman":{"fullname":"Rick Kazman","password":"kazmanpassword","email":"kazman@hawaii.edu"},"itm352":{"password":"grader","email":"newuser@user.com"},"hawaii234":{"password":"123456","email":"hawaii.m@yahoo.com"},"ms295":{"password":"momoka1234","email":"ms295@hawaii.edu"},"tokyo12":{"password":"hanako123","email":"hanako@yahoo.com"},"abc55":{"password":"abcd555","email":"abc12@email.com"}}
+{"itm352@hawaii.edu":{"name":"ITM 352","password":"grader"},"tyoung24@hawaii.edu":{"name":"Tiff Young","password":"tyoung24"},"testing@gmail.com":{"password":"testing123","name":"Tiffany Young"},"abcde@hawaii.edu":{"password":"passsword","name":"clown "},"xxx@xxx.com":{"password":"testing123","name":"xxx"},"xy@gmail.co":{"password":"testing123","name":"Tiff Young"},"jam30@hawaii.edu":{"password":"Aquafina","name":"Jonathan Machado"}}

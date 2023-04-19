@@ -1,0 +1,115 @@
+<!-- Author: Jonathan Machado --> <!-- Comment indicating the author of the code -->
+<!DOCTYPE html> <!-- Declaration of the HTML document type -->
+<html> <!-- Opening tag for the HTML document -->
+
+<!-- Importing an external JavaScript file for product data -->
+<script src="./products.js" type="text/javascript"></script>
+
+<!-- JavaScript code block -->
+<script>
+  // Function to check if a value is a non-negative integer
+  function isNonNegInt(q, return_errors = false) {
+    errors = []; // assume no errors at first
+    if (q == '') q = 0; // handle blank inputs as if they are 0
+    if (Number(q) != q) errors.push('<font color="red">Not a number!</font>'); // Check if string is a number value
+    else if (q < 0) errors.push('<font color="red">Negative value!</font>'); // Check if it is non-negative
+    else if (parseInt(q) != q) errors.push('<font color="red">Not an integer!</font>'); // Check that it is an integer
+    return return_errors ? errors : (errors.length == 0);
+  }
+
+  // Function to check and display errors in quantity textboxes
+  function checkQuantityTextbox(the_textbox) {
+    errs = isNonNegInt(the_textbox.value, true);
+    if (errs.length == 0) errs = ['You want:'];
+    if (the_textbox.value.trim() == '') errs = ['Quantity'];
+    document.getElementById(the_textbox.name + '_label').innerHTML = errs.join(", ");
+  }
+
+  let params = (new URL(document.location)).searchParams; // get the query string which has the form data
+
+  window.onload = function () {
+    /* form was submitted so check that quantities are valid then redirect to invoice if ok. */
+    if (params.has('errors')) {
+      /* set quantity inside of textbox what was entered to cart */
+      if (params.has('quantities')) {
+        var quantities = JSON.parse(params.get('quantities')); //turns string in object
+        // put quantities in quantity textboxes
+        for (let i in quantities) {
+          quantity_form[`quantity[${i}]`].value = quantities[i];
+          checkQuantityTextbox(quantity_form[`quantity[${i}]`]);
+        }
+      }
+      var errors = JSON.parse(params.get('errors')); //turns string in object
+      let err_str = '';
+      for (err in errors) { //combine errors in one string
+        err_str += errors[err] + '\n';
+      }
+      alert(err_str);
+    }
+  }
+</script>
+
+<head> <!-- Opening tag for the head section of the HTML document -->
+  <meta charset="UTF-8"> <!-- Meta tag to specify the character encoding for the document -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Meta tag to specify the viewport settings -->
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"> <!-- Meta tag to specify compatibility with Internet Explorer -->
+  
+  <title>Shop</title> <!-- Title of the HTML document -->
+  <!-- Style block for defining CSS styles -->
+  <style> 
+    body {
+        text-align: center; 
+        background: #e39c8a; 
+    }
+
+    h1 {
+        text-align: center; 
+    }
+
+    h2 {
+        text-align: center; 
+      }
+    img {
+        border-radius: 70%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="myNavbar">
+    <!-- Navigation bar -->
+    <a href="index.html">Home</a>
+    <a href="shop.html">Products</a>
+  </div>
+  <main>
+    <form name="quantity_form" action="./process_form" method="POST">
+      <script>
+        // Dynamically generate product items using JavaScript
+        for (i in products) {
+          document.write(`
+            <div class="item">
+              <div class="container">    
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="panel panel-primary">
+                      <div class="panel-heading">${products[i].item}</div>
+                      <div class="panel-body"><img src="${products[i].image}" style=height=30% width=30%" class="img-responsive" alt="Image"></div>
+                      <div class="panel-footer">
+                        <p><strong>$${products[i].price.toFixed(2)}</strong></p>
+                        <p id="quantity[${i}]_label">You Want:</p>
+                        <input type="text" placeholder="We have ${products[i].quantity_available} available" name="quantity[${i}]" onkeyup="checkQuantityTextbox(this);">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `);
+        }
+      </script>
+      <h3><input type="submit" class="button" value="Purchase" name="purchase_submit"></h3>
+    </form>
+  </main>
+</body>
+
+</html>

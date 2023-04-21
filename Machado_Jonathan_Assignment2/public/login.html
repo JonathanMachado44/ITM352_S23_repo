@@ -8,26 +8,97 @@
     <!-- Title of the page -->
     <title>Login</title>
     <!-- Inline CSS for styling -->
-    <style>
-        body {
-            text-align: center;
-            background: #e39c8a;
-        }
-        h1 {
-            text-align: center;
-        }
-        h2 {
-            text-align: center;
-        }
-        img {
-            border-radius: 70%;
-        }
-        .button {
+
+       <style>
+   body {
+        text-align: center;
+        background: #e39c8a;
+    }
+    h1 {
+        text-align: center;
+        font-size: 36px;
+        margin-top: 80px;
+        margin-bottom: 20px;
+    }
+    h2 {
+        text-align: center;
+        font-size: 24px;
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+    }
+    img {
+        border-radius: 70%;
+        max-width: 300px;
+        margin-top: 20px;
+        transition: transform 0.3s ease-in-out;
+    }
+    img:hover {
+        transform: scale(1.05);
+    }
+    .button {
             height: 40px;
             width: 150px;
             font-size: 18px;
             padding: 10px 20px;
+            background-color: #fff;
+            border: none;
+            color: #070100;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border-radius:6px;
         }
+    .button:hover {
+        background-color: #020000;
+        color: #fff;
+    }
+    ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.285);
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: rgb(217, 206, 206);
+}
+.form-outline {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        position: center;
+        top: -10px;
+        left: 20px;
+        padding: 0 5px;
+        color: #040100;
+        font-size: 14px;
+    }
+    .form-control {
+        width: 50%;
+        padding: 10px;
+        border: none;
+        border-bottom: 1px solid #e39c8a;
+        margin-bottom: 20px;
+        font-size: 16px;
+        border-radius:6px;
+    }
     </style>
     <!-- JavaScript file to handle user data -->
     <script src="/user_data.js" type="json"></script>
@@ -51,30 +122,28 @@
 <body>
     <div>
         <!-- Navigation links -->
-        <h3>
-            <a href="index.html">Home</a>
-            <a href="shop.html">Products</a>
-        </h3>
+        
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Products</a></li>
+          </ul>
+
     </div>
     <!-- Login form section -->
     <section class="vh-100 gradient-custom">
         <form name="process_login" action="/process_login" method="POST">
-            <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-            <p class="text-white-50 mb-5">Please enter your email and password!</p>
+            <h1 class="fw-bold mb-2 text-uppercase">Login</h1>
+            <p class="text-white-50 mb-5">Enter your email and password</p>
             <!-- Email input field -->
             <div class="form-outline form-white mb-4">
-                <input type="email" name="email" id="email" class="form-control form-control-lg" />
-                <label class="form-label" id="email_label" for="email">Email</label>
+                <input placeholder = "Email" type="email" name="email" id="email" class="form-control form-control-lg" />
+                <label class="form-label" id="email_label" for="email"></label>
             </div>
             <!-- Password input field -->
             <div class="form-outline form-white mb-4">
-                <input type="password" name="password" id="password" class="form-control form-control-lg" />
-                <label class="form-label" id="password_label" for="password">Password</label>
+                <input placeholder="Password" type="password" name="password" id="password" class="form-control form-control-lg" />
+                <label class="form-label" id="password_label" for="password"></label>
             </div>
-            <!-- Forgot password link -->
-            <p class="mb-5 pb-lg-2"><a class="text-white-50"
-                    onclick="window.location.href = 'update_info.html' + document.location.search;">Forgot
-                    password?</a></p>
             <!-- Submit button -->
             <div class="d-flex justify-content-center">
                 <button type="submit" class="button" value="login" name="login">Log in</button>
@@ -82,8 +151,7 @@
         </form>
         <!-- Sign up link -->
         <div>
-            <p class="mb-0">Don't have an account? <a href="registration.html" class="text-white-50 fw-bold">Sign
-                    Up</a>
+            <p class="mb-0">No Account? Create one <a href="registration.html" class="text-white-50 fw-bold">here  </a>
             </p>
         </div>
    

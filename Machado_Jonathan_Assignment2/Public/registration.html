@@ -1,4 +1,4 @@
-<!-- Jonathan Machado (Registration for Assignment2 (Based on Gymwhale's registration.html))-->
+<!-- Jonathan Machado (Registration for Assignment2 )-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,37 +8,106 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registration</title>
   <style>
-    body {
-      text-align: center;
-      background: #e39c8a;
+   body {
+        text-align: center;
+        background: #e39c8a;
     }
-
-    h1,
+    h1 {
+        text-align: center;
+        font-size: 36px;
+        margin-top: 80px;
+        margin-bottom: 20px;
+    }
     h2 {
-      text-align: center;
+        text-align: center;
+        font-size: 24px;
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-transform: uppercase;
     }
-
     img {
-      border-radius: 70%;
+        border-radius: 70%;
+        max-width: 300px;
+        margin-top: 20px;
+        transition: transform 0.3s ease-in-out;
+    }
+    img:hover {
+        transform: scale(1.05);
+    }
+    .button {
+            height: 40px;
+            width: 150px;
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: #fff;
+            border: none;
+            color: #070100;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border-radius:6px;
+        }
+    .button:hover {
+        background-color: #020000;
+        color: #fff;
+    }
+    ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.285);
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: rgb(217, 206, 206);
+}
+.form-outline {
+        position: relative;
+        margin-bottom: 20px;
     }
 
-    .button {
-      height: 40px;
-      width: 150px;
-      font-size: 18px;
-      padding: 10px 20px;
+    .form-label {
+        position: center;
+        top: -10px;
+        left: 20px;
+        padding: 0 5px;
+        color: #040100;
+        font-size: 14px;
     }
-  </style>
+    .form-control {
+        width: 50%;
+        padding: 10px;
+        border: none;
+        border-bottom: 1px solid #e39c8a;
+        margin-bottom: 20px;
+        font-size: 16px;
+        border-radius:6px;
+    }
+</style>
 </head>
 
 <body>
-  <h3>
-    <a href="index.html">Home</a>
-    <a href="shop.html">Products</a>
-  </h3>
 
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">Products</a></li>
+  </ul>
   <div class="mb-md-5 mt-md-4 pb-5">
-    <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+    <h1 class="text-uppercase text-center mb-5">Create an account</h1>
 
     <form name="register_form" action="./register" method="POST">
 
@@ -86,7 +155,7 @@
       </script>
 
       <div class="d-flex justify-content-center">
-        <button type="submit" class="button">Register</button>
+        <button type="submit" class="button" >Register</button>
       </div>
            <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="login.html"
                       class="fw-bold text-body"><u>Login here</u></a></p>

@@ -1,6 +1,6 @@
  <!-- Jonathan Machado (invoice for Assignment2)-->
   <script src="./products.js" type="text/javascript"></script>
-<script src="/user_data.json" type="json"></script>
+<script src="./user_data.json" type="json"></script>
 <script>
   // Get URL parameters
   let params = (new URL(document.location)).searchParams;
@@ -24,7 +24,7 @@
     
       <title>Invoice</title>
       <!-- Add CSS styles -->
-      <style>
+      <style> 
         body {
             text-align: center;
             background: #e39c8a;
@@ -32,32 +32,136 @@
     
         h1 {
             text-align: center;
+            font-size: 36px;
+            margin-top: 80px;
+            margin-bottom: 20px;
         }
     
         h2 {
             text-align: center;
+            font-size: 24px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-transform: uppercase;
         }
         img {
             border-radius: 70%;
+            max-width: 300px;
+            margin-top: 20px;
+            transition: transform 0.3s ease-in-out;
+        }
+        img:hover {
+            transform: scale(1.05);
         }
         .button {
   
+                height: 40px;
   height: 40px; 
+                height: 40px;
+  height: 40px; 
+                height: 40px;
+  height: 40px; 
+                height: 40px;
+                width: 150px;
   width: 150px; 
-  font-size: 18px;
-  padding: 10px 20px;
-}
-    </style>
+                width: 150px;
+  width: 150px; 
+                width: 150px;
+  width: 150px; 
+                width: 150px;
+                font-size: 18px;
+                padding: 10px 20px;
+                background-color: #fff;
+                border: none;
+                color: #070100;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                margin-bottom: 20px;
+                font-size: 16px;
+                border-radius:6px;
+            }
+        .button:hover {
+            background-color: #020000;
+            color: #fff;
+        }
+        ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: rgba(0, 0, 0, 0.285);
+    }
+    
+    li {
+      float: left;
+    }
+    
+    li a {
+      display: block;
+      color: rgb(255, 255, 255);
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+    
+    li a:hover {
+      background-color: rgb(217, 206, 206);
+    }
+    
+        .center {
+          margin-top: 30px;
+        }
+    
+        table {
+          width: 100%;
+          max-width: 600px;
+          margin: 0 auto;
+          background-color: #ffffff;
+          border-collapse: collapse;
+          margin-top: 30px;
+        }
+    
+        th,
+        td {
+          padding: 12px 15px;
+          text-align: left;
+        }
+    
+        th {
+          font-size: 18px;
+        }
+    
+
+    
+        tfoot th,
+        tfoot td {
+          font-size: 18px;
+          font-weight: bold;
+        }
+    
+        .table-row {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 20px;
+        }
+    
+        .table-row td {
+          flex-basis: 25%;
+        }
+    
+        .table-row td.text-right {
+          text-align: right;
+        }
+      </style>
     </head>
     <body>
       <!-- Add Navbar -->
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-              <h3>
-              <a href="index.html">Home</a>
-            <a href="shop.html">Products</a>
-              <a href="update_info.html"> Account</a>
-            </h3>
+                <ul>
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="shop.html">Products</a></li>
+                </ul>
             </ul>
           </div>
         </div>

@@ -1,0 +1,192 @@
+<!-- AUTHOR: TIFFANY YOUNG S22
+Login page for ecommerce site-->
+<!DOCTYPE html>
+
+<!--https://mdbootstrap.com/docs/standard/extended/login/#section-4 login template, modified from Reece Nagaoka, Momoka Michimoto -->
+<script src="/user_data.js" type="json"></script>
+<script src="./products.js"></script>
+<script src="./functions.js"></script>
+<script>
+window.onload = function() {
+let params = (new URL(document.location)).searchParams;
+//function borrowed from momoka michimoto FW21 login line54
+    if (params.has('login_err')) { //searches for login_err array generated on the server and alerts the errors to the client
+        alert (params.get('login_err'));
+      } //sticky
+      if (params.has('email')) { //params searches 'email' and changes the email value textbox to the email entered
+        email.value = params.get('email')
+      }
+    }
+    /* asst 3 code examples*/
+    var shopping_cart;
+    var total = 0;
+    let params = (new URL(document.location)).searchParams;
+    // get the query string
+    if (params.has('products_key')) {
+      var products_key = params.get('products_key');
+    } else { // if no params then default to milk tea product page
+      products_key = "Milk Tea"
+    }
+    var products;
+    loadJSON('get_products_data', function (response) {
+      // Parsing JSON string into object
+      products = JSON.parse(response);
+    });
+  loadJSON('./get_cart', function (response) {
+            // Parsing JSON string into object
+            shopping_cart = JSON.parse(response);
+            for (pk in shopping_cart) {
+                total += shopping_cart[pk].reduce((a, b) => a + b);
+            }
+        });
+</script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Login</title>
+    <style>
+      body {
+           text-align: center;
+           background: #e39c8a;
+       }
+       h1 {
+           text-align: center;
+           font-size: 36px;
+           margin-top: 80px;
+           margin-bottom: 20px;
+       }
+       h2 {
+           text-align: center;
+           font-size: 24px;
+           margin-top: 0;
+           margin-bottom: 20px;
+           text-transform: uppercase;
+       }
+       img {
+           border-radius: 70%;
+           max-width: 300px;
+           margin-top: 20px;
+           transition: transform 0.3s ease-in-out;
+       }
+       img:hover {
+           transform: scale(1.05);
+       }
+       .button {
+               height: 40px;
+               width: 150px;
+               font-size: 18px;
+               padding: 10px 20px;
+               background-color: #fff;
+               border: none;
+               color: #070100;
+               cursor: pointer;
+               transition: background-color 0.3s ease;
+               margin-bottom: 20px;
+               font-size: 16px;
+               border-radius:6px;
+           }
+       .button:hover {
+           background-color: #020000;
+           color: #fff;
+       }
+       ul {
+     list-style-type: none;
+     margin: 0;
+     padding: 0;
+     overflow: hidden;
+     background-color: rgba(0, 0, 0, 0.285);
+   }
+   
+   li {
+     float: left;
+   }
+   
+   li a {
+     display: block;
+     color: rgb(255, 255, 255);
+     text-align: center;
+     padding: 14px 16px;
+     text-decoration: none;
+   }
+   
+   li a:hover {
+     background-color: rgb(217, 206, 206);
+   }
+   .form-outline {
+           position: relative;
+           margin-bottom: 20px;
+       }
+   
+       .form-label {
+           position: center;
+           top: -10px;
+           left: 20px;
+           padding: 0 5px;
+           color: #040100;
+           font-size: 14px;
+       }
+       .form-control {
+           width: 50%;
+           padding: 10px;
+           border: none;
+           border-bottom: 1px solid #e39c8a;
+           margin-bottom: 20px;
+           font-size: 16px;
+           border-radius:6px;
+       }
+       </style>
+</head>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<body>
+    <section class="vh-100 gradient-custom">
+        <div class="container py-5 h-100">
+          <div class="row d-flex align-items-center h-100 gradient-custom-3">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+              <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                <div class="card-body p-5 text-center">
+      
+                  <div class="mb-md-5 mt-md-4 pb-5">
+
+                  <form name="process_login" action="/process_login" method="POST">    
+                    <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                    <p class="text-white-50 mb-5">Please enter your email and password!</p>
+      
+                    <div class="form-outline form-white mb-4">
+                      <input placeholder = "Email" type="email" name="email" id="email" class="form-control form-control-lg" />
+                      <label class="form-label" id="email_label" for="email"></label>
+                  </div>
+                
+                  <div class="form-outline form-white mb-4">
+                      <input placeholder="Password" type="password" name="password" id="password" class="form-control form-control-lg" />
+                      <label class="form-label" id="password_label" for="password"></label>
+                  </div>
+                    <p class="mb-0"></p><a href="update_info.html" class="text-white-50 fw-bold">Forgot password?</a>
+                    </p>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="button" value="login" name="login">Log in</button>
+                      </div>
+                  </div>
+                  <div>
+                    <p class="mb-0">Don't have an account? <a href="registration.html" class="text-white-50 fw-bold">Sign Up</a>
+                    </p>
+                  </div>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+</body>
+</html>

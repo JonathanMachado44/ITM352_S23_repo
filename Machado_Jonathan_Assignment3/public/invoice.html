@@ -1,0 +1,282 @@
+<script src="./products.js" type="text/javascript"></script>
+<script src="/user_data.json" type="json"></script>
+<script src="./functions.js"></script>
+<script>
+  let params = (new URL(document.location)).searchParams; //takes data from querystring
+  var quantities = []; //gets quantities to store
+  if (params.has('quantity')) {
+    quantities = JSON.parse(params.get(`quantity`)); //params gets quantity from purchase, parses string into a json object
+  }
+
+  loadJSON('./get_cart', function (response) {
+    // Parsing JSON string into object
+    shopping_cart = JSON.parse(response);
+  });
+
+  function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+  // if user is not logged in, send them to login
+  if (getCookie('user_cookie') != '') {
+    var user_cookie = getCookie('user_cookie');
+    var name = user_cookie;
+  } else {
+    location.href = './login.html';
+    window.stop;
+  }
+</script>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <title>Invoice</title>
+  <style> 
+    body {
+        text-align: center;
+        background: #e39c8a;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 36px;
+        margin-top: 80px;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 24px;
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+    }
+    img {
+        border-radius: 70%;
+        max-width: 300px;
+        margin-top: 20px;
+        transition: transform 0.3s ease-in-out;
+    }
+    img:hover {
+        transform: scale(1.05);
+    }
+    .button {
+
+            height: 40px;
+height: 40px; 
+            height: 40px;
+height: 40px; 
+            height: 40px;
+height: 40px; 
+            height: 40px;
+            width: 150px;
+width: 150px; 
+            width: 150px;
+width: 150px; 
+            width: 150px;
+width: 150px; 
+            width: 150px;
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: rgb(4, 0, 0);
+            border: none;
+            color: #fcfafa;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border-radius:6px;
+        }
+    .button:hover {
+        background-color: #020000;
+        color: #fff;
+    }
+    ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.285);
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: rgb(11, 1, 1);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: rgb(217, 206, 206);
+}
+
+    .center {
+      margin-top: 30px;
+    }
+
+    table {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+
+    th,
+    td {
+      padding: 12px 15px;
+      text-align: left;
+    }
+
+    th {
+      font-size: 18px;
+    }
+
+
+
+    tfoot th,
+    tfoot td {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .table-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .table-row td {
+      flex-basis: 25%;
+    }
+
+    .table-row td.text-right {
+      text-align: right;
+    }
+  </style>
+</head>
+
+<body>
+
+  <script>
+    if (name != 'undefined' && name != '') {
+      document.write(`<div class="center"><h4><b>Mahalo, ${name}! Here is your invoice:</b><h4></div>`)
+    }
+  </script>
+  <table class="body-wrap">
+    <tbody>
+      <tr>
+        <td></td>
+        <td class="container" width="500">
+          <div class="content">
+            <table class="main" width="100%" cellpadding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <td class="content-wrap aligncenter">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                      <div class="row table-row">
+                        <table class="table table-striped">
+                          <thead>
+                          <tbody>
+                            <tr>
+                              <th style="width:10%">Item</th>
+                              <th class="text-right" style="width:15%">Quantity</th>
+                              <th class="text-right" style="width:15%">Price</th>
+                              <th class="text-right" style="width:30%">Extended Price</th>
+                            </tr>
+                            </thead>
+                            <script>
+                              // Compute sub-total
+                              var subtotal = 0;
+
+                              for (let pkey in shopping_cart) { //same as cart code example
+                                for (let i in shopping_cart[pkey]) {
+                                  let quantities = shopping_cart[pkey][i];
+                                  if (quantities > 0) {
+                                    // product row
+                                    extended_price = quantities * products[pkey][i].price
+                                    subtotal += extended_price;
+                                    document.write(`
+                                  <tr>
+			                              <td>${products[pkey][i].item}</td>
+			                              <td class="text-right">${quantities}</td>
+			                              <td class="text-right">$${products[pkey][i].price.toFixed(2)}</td>
+			                              <td class="text-right">$${extended_price.toFixed(2)}</td>
+                                  </tr>
+                                  `);
+                                  }
+                                }
+                              };
+                              // Compute tax
+                              var tax_rate = 0.0475;
+                              var tax = tax_rate * subtotal;
+
+                              // Compute delivery
+                              if (subtotal <= 10) {
+                                delivery = 2;
+                              }
+                              else if (subtotal <= 30) {
+                                delivery = 5;
+                              }
+                              else {
+                                delivery = 0.20 * subtotal; // 20% of subtotal
+                              }
+                              // Compute grand total
+                              var grand_total = subtotal + tax + delivery;
+
+                            </script>
+                          </tbody>
+                        </table>
+
+                        <div class="col-xs-6 text-right pull-right invoice-total">
+                          <p>Subtotal : $
+                            <script>document.write(subtotal.toFixed(2));</script>
+                          </p>
+                          <p>Tax @ 4.75% : $
+                            <script>document.write(tax.toFixed(2));</script>
+                          </p>
+                          <p>Delivery : $
+                            <script>document.write(delivery.toFixed(2));</script>
+                          </p>
+                          <p><strong>Grand Total : $
+                              <script>document.write(grand_total.toFixed(2));</script>
+                            </strong> </p>
+                          <div class="total text-left">
+                          </div>
+
+                        <form action="/complete_purchase" method=POST>
+                          <input type=submit class="button" value="Send to Email">
+                        </form>
+                        </div>
+
+</body>
+<div class="footer">
+  <p>&copy; Tiffany Young 2022</p>
+  <br>
+</div>
+
+</html>

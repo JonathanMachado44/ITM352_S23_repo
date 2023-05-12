@@ -232,18 +232,18 @@ li a:hover {
                                 }
                               };
                               // Compute tax
-                              var tax_rate = 0.0475;
+                              var tax_rate = 0.05;
                               var tax = tax_rate * subtotal;
 
                               // Compute delivery
-                              if (subtotal <= 10) {
-                                delivery = 2;
+                              if (subtotal <= 49.99) {
+                                delivery = 3;
                               }
-                              else if (subtotal <= 30) {
-                                delivery = 5;
+                              else if (subtotal <= 99.99) {
+                                delivery = 6;
                               }
                               else {
-                                delivery = 0.20 * subtotal; // 20% of subtotal
+                                delivery = 0.07 * subtotal; // 7% of subtotal
                               }
                               // Compute grand total
                               var grand_total = subtotal + tax + delivery;
@@ -256,7 +256,7 @@ li a:hover {
                           <p>Subtotal : $
                             <script>document.write(subtotal.toFixed(2));</script>
                           </p>
-                          <p>Tax @ 4.75% : $
+                          <p>Tax @ 5.00% : $
                             <script>document.write(tax.toFixed(2));</script>
                           </p>
                           <p>Delivery : $

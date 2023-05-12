@@ -2,115 +2,115 @@
     "Food": [
         {
             "item": "Dry Food",
-            "price": 4.50,
+            "price": 20.00,
             "image": "./images/dryfood.png",
-            "quantity_available": 15
+            "quantity_available": 20
         },
         {
             "item": "Premium Dry Food",
-            "price": 5.40,
+            "price": 30.00,
             "image": "./images/premiumdry.jpg",
-            "quantity_available": 5
+            "quantity_available": 20
         },
         {
             "item": "Wet Food",
-            "price": 5.50,
+            "price": 25.00,
             "image": "./images/wetfood.jpg",
-            "quantity_available": 10
+            "quantity_available": 20
         },
         {
             "item": "Premium Wet Food",
-            "price": 4.00,
+            "price": 35.00,
             "image": "./images/premiumwet.jpg",
-            "quantity_available": 6
+            "quantity_available": 20
         },
         {
             "item": "Dry Treats",
-            "price": 5.00,
+            "price": 15.00,
             "image": "./images/drytreats.jpg",
-            "quantity_available": 7
+            "quantity_available": 20
         },
         {
             "item": "Wet Treats",
-            "price": 5.50,
+            "price": 20.00,
             "image": "./images/wettreat.jpg",
-            "quantity_available": 8
+            "quantity_available": 20
         }
     ],
     "Toys": [
         {
             "item": "Feather Stick",
-            "price": 4.90,
+            "price": 10.00,
             "image": "./images/featherstick.jpg",
-            "quantity_available": 16
+            "quantity_available": 20
         },
         {
             "item": "Chase Meowtain",
-            "price": 5.50,
+            "price": 20.00,
             "image": "./images/chasemeowtain.jpg",
-            "quantity_available": 14
+            "quantity_available": 20
         },
         {
             "item": "Toy Mice",
-            "price": 5.50,
+            "price": 10.00,
             "image": "./images/mice.jpg",
-            "quantity_available": 16
+            "quantity_available": 20
         },
         {
             "item": "Bell Balls",
-            "price": 6.50,
+            "price": 10.00,
             "image": "./images/bellballs.jpg",
-            "quantity_available": 5
+            "quantity_available": 20
         },
         {
             "item": "Laser Pointer",
-            "price": 5.00,
+            "price": 15.00,
             "image": "./images/laser.jpg",
-            "quantity_available": 9
+            "quantity_available": 20
         },
         {
             "item": "Sushi Toy Set",
-            "price": 5.50,
+            "price": 15.00,
             "image": "./images/sushi.jpg",
-            "quantity_available": 12
+            "quantity_available": 20
         }
     ],
     "Mic Items": [
         {
             "item": "Litter Box",
-            "price": 4.00,
+            "price": 20.00,
             "image": "./images/litterbox.jpg",
-            "quantity_available": 19
+            "quantity_available": 20
         },
         {
             "item": "Litter",
-            "price": 4.00,
+            "price": 25.00,
             "image": "./images/litter.jpg",
-            "quantity_available": 19
+            "quantity_available": 20
         },
         {
             "item": "Cat Tree",
-            "price": 4.40,
+            "price": 50.00,
             "image": "./images/cattree.jpg",
-            "quantity_available": 19
+            "quantity_available": 20
         },
         {
             "item": "Flea Medicine",
-            "price": 4.50,
+            "price": 20.00,
             "image": "./images/medicing.jpg",
-            "quantity_available": 15
+            "quantity_available": 20
         },
         {
             "item": "Food Bowl",
-            "price": 4.50,
+            "price": 10.00,
             "image": "./images/bowl.png",
-            "quantity_available": 12
+            "quantity_available": 20
         },
         {
             "item": "Water Fountain",
-            "price": 4.50,
+            "price": 30.00,
             "image": "./images/fountain.jpg",
-            "quantity_available": 11
+            "quantity_available": 20
         }
     ]
     

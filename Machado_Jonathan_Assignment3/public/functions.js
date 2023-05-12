@@ -21,3 +21,11 @@ function nav_bar(this_product_key, products_data) {
         document.write(`<li><a href="./shop.html?products_key=${products_key}">${products_key}</a></li>`);
     }
 }
+    
+    
+    
+    
+    
+    
+    
+    

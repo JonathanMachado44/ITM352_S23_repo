@@ -1,44 +1,46 @@
-<!-- AUTHOR: TIFFANY YOUNG S22
-Login page for ecommerce site-->
+<!--Jonathan Machado login page-->
 <!DOCTYPE html>
-
-<!--https://mdbootstrap.com/docs/standard/extended/login/#section-4 login template, modified from Reece Nagaoka, Momoka Michimoto -->
 <script src="/user_data.js" type="json"></script>
 <script src="./products.js"></script>
 <script src="./functions.js"></script>
 <script>
-window.onload = function() {
-let params = (new URL(document.location)).searchParams;
-//function borrowed from momoka michimoto FW21 login line54
-    if (params.has('login_err')) { //searches for login_err array generated on the server and alerts the errors to the client
-        alert (params.get('login_err'));
-      } //sticky
-      if (params.has('email')) { //params searches 'email' and changes the email value textbox to the email entered
-        email.value = params.get('email')
-      }
+  // Runs when the window loads
+  window.onload = function() {
+
+    // Checks for URL parameters named 'login_err' and displays an alert with the corresponding value if it exists
+    let params = (new URL(document.location)).searchParams;
+    if (params.has('login_err')) { 
+      alert (params.get('login_err'));
     }
-    /* asst 3 code examples*/
+
+    // Checks for a parameter named 'email' and sets the value of an element with that ID to the value of the parameter if it exists
+    if (params.has('email')) {
+      email.value = params.get('email')
+    }
+
+    // Declares some variables for a shopping cart and total cost, and checks for another parameter named 'products_key'
     var shopping_cart;
     var total = 0;
-    let params = (new URL(document.location)).searchParams;
-    // get the query string
     if (params.has('products_key')) {
       var products_key = params.get('products_key');
-    } else { // if no params then default to milk tea product page
-      products_key = "Milk Tea"
+    } else { 
+      products_key = "Food"
     }
+
+    // Declares a variable for product data and retrieves it using the 'loadJSON' function
     var products;
     loadJSON('get_products_data', function (response) {
-      // Parsing JSON string into object
       products = JSON.parse(response);
     });
-  loadJSON('./get_cart', function (response) {
-            // Parsing JSON string into object
-            shopping_cart = JSON.parse(response);
-            for (pk in shopping_cart) {
-                total += shopping_cart[pk].reduce((a, b) => a + b);
-            }
-        });
+
+    // Retrieves shopping cart data using the 'loadJSON' function and calculates the total cost of items in the cart
+    loadJSON('./get_cart', function (response) {
+      shopping_cart = JSON.parse(response);
+      for (pk in shopping_cart) {
+        total += shopping_cart[pk].reduce((a, b) => a + b);
+      }
+    });
+  }
 </script>
 <html lang="en">
 <head>
@@ -49,96 +51,119 @@ let params = (new URL(document.location)).searchParams;
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>Login</title>
     <style>
+      /* Styles for the body element */
       body {
-           text-align: center;
-           background: #e39c8a;
-       }
-       h1 {
-           text-align: center;
-           font-size: 36px;
-           margin-top: 80px;
-           margin-bottom: 20px;
-       }
-       h2 {
-           text-align: center;
-           font-size: 24px;
-           margin-top: 0;
-           margin-bottom: 20px;
-           text-transform: uppercase;
-       }
-       img {
-           border-radius: 70%;
-           max-width: 300px;
-           margin-top: 20px;
-           transition: transform 0.3s ease-in-out;
-       }
-       img:hover {
-           transform: scale(1.05);
-       }
-       .button {
-               height: 40px;
-               width: 150px;
-               font-size: 18px;
-               padding: 10px 20px;
-               background-color: #fff;
-               border: none;
-               color: #070100;
-               cursor: pointer;
-               transition: background-color 0.3s ease;
-               margin-bottom: 20px;
-               font-size: 16px;
-               border-radius:6px;
-           }
-       .button:hover {
-           background-color: #020000;
-           color: #fff;
-       }
-       ul {
-     list-style-type: none;
-     margin: 0;
-     padding: 0;
-     overflow: hidden;
-     background-color: rgba(0, 0, 0, 0.285);
-   }
-   
-   li {
-     float: left;
-   }
-   
-   li a {
-     display: block;
-     color: rgb(255, 255, 255);
-     text-align: center;
-     padding: 14px 16px;
-     text-decoration: none;
-   }
-   
-   li a:hover {
-     background-color: rgb(217, 206, 206);
-   }
-   .form-outline {
-           position: relative;
-           margin-bottom: 20px;
-       }
-   
-       .form-label {
-           position: center;
-           top: -10px;
-           left: 20px;
-           padding: 0 5px;
-           color: #040100;
-           font-size: 14px;
-       }
-       .form-control {
-           width: 50%;
-           padding: 10px;
-           border: none;
-           border-bottom: 1px solid #e39c8a;
-           margin-bottom: 20px;
-           font-size: 16px;
-           border-radius:6px;
-       }
-       </style>
+        text-align: center;
+        background: #e39c8a;
+      }
+    
+      /* Styles for the h1 element */
+      h1 {
+        text-align: center;
+        font-size: 36px;
+        margin-top: 80px;
+        margin-bottom: 20px;
+      }
+    
+      /* Styles for the h2 element */
+      h2 {
+        text-align: center;
+        font-size: 24px;
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+      }
+    
+      /* Styles for the img element */
+      img {
+        border-radius: 70%;
+        max-width: 300px;
+        margin-top: 20px;
+        transition: transform 0.3s ease-in-out;
+      }
+    
+      /* Styles for the img element when hovering */
+      img:hover {
+        transform: scale(1.05);
+      }
+    
+      /* Styles for the .button class */
+      .button {
+        height: 40px;
+        width: 150px;
+        font-size: 18px;
+        padding: 10px 20px;
+        background-color: #fff;
+        border: none;
+        color: #070100;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-bottom: 20px;
+        font-size: 16px;
+        border-radius: 6px;
+      }
+    
+      /* Styles for the .button class when hovering */
+      .button:hover {
+        background-color: #020000;
+        color: #fff;
+      }
+    
+      /* Styles for the ul element */
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.285);
+      }
+    
+      /* Styles for the li element */
+      li {
+        float: left;
+      }
+    
+      /* Styles for the li a element */
+      li a {
+        display: block;
+        color: rgb(255, 255, 255);
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+    
+      /* Styles for the li a element when hovering */
+      li a:hover {
+        background-color: rgb(217, 206, 206);
+      }
+    
+      /* Styles for the .form-outline class */
+      .form-outline {
+        position: relative;
+        margin-bottom: 20px;
+      }
+    
+      /* Styles for the .form-label class */
+      .form-label {
+        position: center;
+        top: -10px;
+        left: 20px;
+        padding: 0 5px;
+        color: #040100;
+        font-size: 14px;
+      }
+    
+      /* Styles for the .form-control class */
+      .form-control {
+        width: 50%;
+        padding: 10px;
+        border: none;
+        border-bottom: 1px solid #e39c8a;
+        margin-bottom: 20px;
+        font-size: 16px;
+        border-radius: 6px;
+      }
+    </style>
 </head>
 <br>
 <br>
@@ -147,46 +172,61 @@ let params = (new URL(document.location)).searchParams;
 <br>
 <br>
 <br>
-<body>
-    <section class="vh-100 gradient-custom">
-        <div class="container py-5 h-100">
-          <div class="row d-flex align-items-center h-100 gradient-custom-3">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-              <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                <div class="card-body p-5 text-center">
-      
-                  <div class="mb-md-5 mt-md-4 pb-5">
+<!-- This is the HTML code for a login page. -->
 
-                  <form name="process_login" action="/process_login" method="POST">    
-                    <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                    <p class="text-white-50 mb-5">Please enter your email and password!</p>
-      
-                    <div class="form-outline form-white mb-4">
-                      <input placeholder = "Email" type="email" name="email" id="email" class="form-control form-control-lg" />
-                      <label class="form-label" id="email_label" for="email"></label>
-                  </div>
-                
+<body>
+  <!-- This section fills the entire height of the viewport with a gradient background. -->
+  <section class="vh-100 gradient-custom">
+    <!-- This container centers the login form vertically. -->
+    <div class="container py-5 h-100">
+      <!-- This row aligns the login form to the center of the page horizontally. -->
+      <div class="row d-flex align-items-center h-100 gradient-custom-3">
+        <!-- This column controls the width of the login form on different screen sizes. -->
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <!-- This card contains the login form and applies some styling to it. -->
+          <div class="card bg-dark text-white" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+              <!-- This div contains the main content of the login form. -->
+              <div class="mb-md-5 mt-md-4 pb-5">
+                <!-- This form sends the login information to the server to be processed. -->
+                <form name="process_login" action="/process_login" method="POST">
+                  <!-- This heading displays the title of the login page. -->
+                  <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                  <!-- This paragraph provides some context for the login form. -->
+                  <p class="text-white-50 mb-5">Enter your email and password</p>
+                  <!-- This div contains the input field for the email. -->
                   <div class="form-outline form-white mb-4">
-                      <input placeholder="Password" type="password" name="password" id="password" class="form-control form-control-lg" />
-                      <label class="form-label" id="password_label" for="password"></label>
+                    <input placeholder = "Email" type="email" name="email" id="email" class="form-control form-control-lg" />
+                    <label class="form-label" id="email_label" for="email"></label>
                   </div>
-                    <p class="mb-0"></p><a href="update_info.html" class="text-white-50 fw-bold">Forgot password?</a>
-                    </p>
-                    <div class="d-flex justify-content-center">
-                        <button type="submit" class="button" value="login" name="login">Log in</button>
-                      </div>
+                  <!-- This div contains the input field for the password. -->
+                  <div class="form-outline form-white mb-4">
+                    <input placeholder="Password" type="password" name="password" id="password" class="form-control form-control-lg" />
+                    <label class="form-label" id="password_label" for="password"></label>
                   </div>
-                  <div>
-                    <p class="mb-0">Don't have an account? <a href="registration.html" class="text-white-50 fw-bold">Sign Up</a>
-                    </p>
+                  <!-- This paragraph contains a link to reset the password. -->
+                  <p class="mb-0"></p><a href="update_info.html" class="text-white-50 fw-bold">Forgot password?</a>
+                  </p>
+                  <!-- This button submits the login form to the server. -->
+                  <div class="d-flex justify-content-center">
+                    <button type="submit" class="button" value="login" name="login">Log in</button>
                   </div>
                 </form>
-                </div>
+              </div>
+              <!-- This div contains a link to the registration page. -->
+              <div>
+                <p class="mb-0">No account? <a href="registration.html" class="text-white-50 fw-bold">Sign Up</a>
+                </p>
               </div>
             </div>
           </div>
         </div>
-      </section>
-    
+      </div>
+    </div>
+  </section>
 </body>
+
+
+
+
 </html>

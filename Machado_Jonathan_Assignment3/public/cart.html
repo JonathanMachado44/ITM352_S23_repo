@@ -1,29 +1,31 @@
-<!--AUTHOR: TIFFANY YOUNG TEMPLATE FROM https://www.bootdey.com/snippets/view/bs4-cart-->
+<!--Jonathan Machado cart page-->
 <!DOCTYPE html>
 <html lang="en">
 <script src="./products.js" type="text/javascript"></script>
 <script src="./functions.js"></script>
 <script>
+  // Declare variables for products and total
   var products;
   var total = 0;
+  
+  // Load JSON data from './get_products_data' and store it in the 'products' variable
   loadJSON('./get_products_data', function (response) {
-    // Parsing JSON string into object
     products = JSON.parse(response);
   });
+  
+  // Load JSON data from './get_cart' and store it in the 'shopping_cart' variable
   loadJSON('./get_cart', function (response) {
-    // Parsing JSON string into object
     shopping_cart = JSON.parse(response);
   });
-  // get the query string
+  
+  // Get URL search parameters and check for 'products_key' parameter
   let params = (new URL(document.location)).searchParams;
   if (params.has('products_key')) {
     var products_key = params.get('products_key');
   }
-  loadJSON('./get_favorites', function (response) {
-    // Parsing JSON string into object
-    favorites = JSON.parse(response);
-  });
-  function getCookie(cname) { //w3schools cookies
+  
+  // Define a function to get the value of a cookie by name
+  function getCookie(cname) { 
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
@@ -38,7 +40,6 @@
     }
     return "";
   }
-
 </script>
 
 <head>
@@ -48,154 +49,162 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <title>Shopping Cart</title>
-  <style>
-            body {
-            text-align: center;
-            background: #e39c8a;
-        }
-    
-        h1 {
-            text-align: center;
-            font-size: 36px;
-            margin-top: 80px;
-            margin-bottom: 20px;
-        }
-    
-        h2 {
-            text-align: center;
-            font-size: 24px;
-            margin-top: 0;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-        img {
-            border-radius: 70%;
-            max-width: 300px;
-            margin-top: 20px;
-            transition: transform 0.3s ease-in-out;
-        }
-        img:hover {
-            transform: scale(1.05);
-        }
-        .button {
-  
-                height: 40px;
-  height: 40px; 
-                height: 40px;
-  height: 40px; 
-                height: 40px;
-  height: 40px; 
-                height: 40px;
-                width: 150px;
-  width: 150px; 
-                width: 150px;
-  width: 150px; 
-                width: 150px;
-  width: 150px; 
-                width: 150px;
-                font-size: 18px;
-                padding: 10px 20px;
-                background-color: #fff;
-                border: none;
-                color: #070100;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-                margin-bottom: 20px;
-                font-size: 16px;
-                border-radius:6px;
-            }
-        .button:hover {
-            background-color: #020000;
-            color: #fff;
-        }
-        ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background-color: rgba(0, 0, 0, 0.285);
-    }
-    
-    li {
-      float: left;
-    }
-    
-    li a {
-      display: block;
-      color: rgb(255, 255, 255);
-      text-align: center;
-      padding: 14px 16px;
-      text-decoration: none;
-    }
-    
-    li a:hover {
-      background-color: rgb(217, 206, 206);
-    }
-    
-        .center {
-          margin-top: 30px;
-        }
-    
-        table {
-          width: 100%;
-          max-width: 600px;
-          margin: 0 auto;
-          background-color: #ffffff;
-          border-collapse: collapse;
-          margin-top: 30px;
-        }
-    
-        th,
-        td {
-          padding: 12px 15px;
-          text-align: left;
-        }
-    
-        th {
-          font-size: 18px;
-        }
-    
+  <!-- Styles for the HTML document -->
+<style>
+  /* Set text alignment and background color for body */
+  body {
+    text-align: center;
+    background: #e39c8a;
+  }
 
-    
-        tfoot th,
-        tfoot td {
-          font-size: 18px;
-          font-weight: bold;
-        }
-    
-        .table-row {
-          display: flex;
-          justify-content: space-between;
-          margin-top: 20px;
-        }
-    
-        .table-row td {
-          flex-basis: 25%;
-        }
-    
-        .table-row td.text-right {
-          text-align: right;
-        }
-  </style>
+  /* Style for main heading */
+  h1 {
+    text-align: center;
+    font-size: 36px;
+    margin-top: 80px;
+    margin-bottom: 20px;
+  }
+
+  /* Style for subheading */
+  h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  /* Style for images */
+  img {
+    border-radius: 70%;
+    max-width: 300px;
+    margin-top: 20px;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  /* Scale up images on hover */
+  img:hover {
+    transform: scale(1.05);
+  }
+
+  /* Style for buttons */
+  .button {
+    height: 40px;
+    width: 150px;
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: #fff;
+    border: none;
+    color: #070100;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border-radius:6px;
+  }
+
+  /* Change button color on hover */
+  .button:hover {
+    background-color: #020000;
+    color: #fff;
+  }
+
+  /* Style for navigation bar */
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.285);
+  }
+
+  li {
+    float: left;
+  }
+
+  /* Style for navigation links */
+  li a {
+    display: block;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  /* Change navigation link color on hover */
+  li a:hover {
+    background-color: rgb(217, 206, 206);
+  }
+
+  /* Style for centering elements */
+  .center {
+    margin-top: 30px;
+  }
+
+  /* Style for table */
+  table {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-collapse: collapse;
+    margin-top: 30px;
+  }
+
+  /* Style for table header and cell data */
+  th,
+  td {
+    padding: 12px 15px;
+    text-align: left;
+  }
+
+  /* Style for table header */
+  th {
+    font-size: 18px;
+  }
+
+  /* Style for table footer */
+  tfoot th,
+  tfoot td {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  /* Style for table rows */
+  .table-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  /* Set flex-basis for table cells */
+  .table-row td {
+    flex-basis: 25%;
+  }
+
+  /* Set text alignment to right for specific table cell */
+  .table-row td.text-right {
+    text-align: right;
+  }
+</style>
 </head>
-
 <body>  
   <ul class="nav navbar-nav">
-    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html">Home</a></li> <!-- Navigation link to the home page -->
     <script>
-      nav_bar(products_key, products);</script>
+      nav_bar(products_key, products);//Display navigation bar with product data 
     </script>
   </ul>
   <ul class="nav navbar-nav navbar-right">
     <script>
-      if (getCookie('user_cookie') != false) { 
+      if (getCookie('user_cookie') != false) { // Check if the user has a cookie
         var user_cookie = getCookie('user_cookie');
-        document.write(`<li><a href="/logout" id="login"><span class="glyphicon glyphicon-user"></span> Logout</a></li>`);
+        document.write(`<li><a href="/logout" id="login"><span class="glyphicon glyphicon-user"></span> Logout</a></li>`); // If the user has a cookie, display logout button
         login.onclick = function () {
-          document.cookie = "user_cookie=; expires=Sat, 26 Jan 2002 00:00:00 UTC; path=/;";
+          document.cookie = "user_cookie=; expires=Sat, 26 Jan 2002 00:00:00 UTC; path=/;"; // Clear the user's cookie when the logout button is clicked
         }
       } else {
-        document.write(`<li><a href="login.html" id="login"><span class="glyphicon glyphicon-user"></span> Account</a></li>`);
+        document.write(`<li><a href="login.html" id="login"><span class="glyphicon glyphicon-user"></span> Account</a></li>`); // If the user doesn't have a cookie, display login button
       }
     </script>
   </ul>
@@ -203,14 +212,13 @@
 </div>
   </nav>
   <div class="container px-3 my-5 clearfix">
-    <!-- Shopping cart table -->
     <div class="card">
       <div class="card-header">
         <h2>Shopping Cart</h2>
       </div>
       <div class="card-body">
         <div class="table-responsive">
-          <form method="POST" action="/update_cart">
+          <form method="POST" action="/update_cart"> <!-- Form to update the cart contents -->
             <table class="table table-bordered m-0" id="myTable">
               <thead>
                 <tr>
@@ -222,47 +230,54 @@
                 </tr>
               </thead>
               <tbody>
-
                 <script>
-                  // Compute sub-total
+                  // Initialize subtotal variable to 0
                   subtotal = 0;
-
-                  for (let pkey in shopping_cart) { //same as mail 
+                
+                  // Loop through each product in the shopping cart
+                  for (let pkey in shopping_cart) { 
                     for (let i in shopping_cart[pkey]) {
                       let quantities = shopping_cart[pkey][i];
+                      
+                      // If product has a quantity greater than 0
                       if (quantities > 0) {
-                        // product row
+                        // Calculate extended price (quantity * price) for product
                         extended_price = quantities * products[pkey][i].price
+                        
+                        // Add extended price to subtotal
                         subtotal += extended_price;
+                        
+                        // Output HTML for product table row using document.write
                         document.write(`
-                  <tr>
-                    <td class="p-4">
-                      <div class="media align-items-center">
-                     <img src="${products[pkey][i].image}"
-                          class="d-block ui-w-40 ui-bordered mr-4" alt=""> ${products[pkey][i].item}
-                      </div>
-                    </td>
-                    <td class="text-center font-weight-semibold align-middle p-4">\$${products[pkey][i].price.toFixed(2)}</td>
-                    <td class="align-middle p-4"><input type="number" id="qty${pkey}${i}" name="qty${pkey}${i}" class="form-control text-center" 
-                    value="${quantities}" min="0" max="${products[pkey][i].quantity_available}"><input type="submit" class="btn btn-secondary" value="Update Cart"></td>
-                    <td class="text-center font-weight-semibold align-middle p-4">\$${extended_price.toFixed(2)}</td>
-                  </tr>`)
+                          <tr>
+                            <td class="p-4">
+                              <div class="media align-items-center">
+                                <img src="${products[pkey][i].image}"
+                                     class="d-block ui-w-40 ui-bordered mr-4" alt=""> ${products[pkey][i].item}
+                              </div>
+                            </td>
+                            <td class="text-center font-weight-semibold align-middle p-4">\$${products[pkey][i].price.toFixed(2)}</td>
+                            <td class="align-middle p-4"><input type="number" id="qty${pkey}${i}" name="qty${pkey}${i}" class="form-control text-center" 
+                            value="${quantities}" min="0" max="${products[pkey][i].quantity_available}"><input type="submit" class="btn btn-secondary" value="Update Cart"></td>
+                            <td class="text-center font-weight-semibold align-middle p-4">\$${extended_price.toFixed(2)}</td>
+                          </tr>`)
                       }
                     }
                   }
+                  // If no items in cart, display alert message and set tax, delivery, and grand_total to 0
                   if (subtotal == 0) {
                     alert(`No items in cart`)
-                    //window.location.href = 'shop.html?'
                     var tax = 0;
                     var delivery = 0;
                     var grand_total = 0;
                   }
+                  // If items in cart, calculate tax, delivery, and grand_total
                   else {
-                    // Compute tax
+                    // Set tax rate to 5%
                     var tax_rate = 0.05;
                     var tax = tax_rate * subtotal;
-
-                    // Compute shipping
+                
+                    // Calculate delivery charge based on subtotal
                     if (subtotal <= 49.99) {
                       delivery = 3;
                     }
@@ -270,70 +285,66 @@
                       delivery = 6;
                     }
                     else {
-                      delivery = 0.07 * subtotal; // 
+                      delivery = 0.07 * subtotal; 
                     }
-                    // Compute grand total
+                    // Calculate grand total by adding subtotal, tax, and delivery
                     var grand_total = subtotal + tax + delivery;
                   }
                 </script>
-              </tbody>
-            </table>
-        </div>
-        <table class="table-condensed table-hover">
-          </form>
-          <script>
-                    document.write(`<form action="./update_cart" method="POST">
-                          <tr><td><img src="${products[pkey][i].image}"
-                          class="d-block ui-w-40 ui-bordered mr-4" alt=""></td>
-                              <td>${products[pkey][i].item}</td>
-                              <td>\$${products[pkey][i].price.toFixed(2)}</td>
-                              <td><input type="number" value="1" min="0" max="${products[pkey][i].quantity_available}" id="qty_${pkey}_${i}" name="qty_${pkey}_${i}"></td><td>
-                                <input type="submit" class="btn btn-md btn-default md-btn-flat mt-2 mr-3" value="Add To Cart"></td></tr>
-                                </form>`);
-                                
-          </script>
-          </tr>
-        </table>
-
-        <!--  Shopping cart table  -->
-        <div class="d-flex">
-          <div class="text-right mt-4 mr-5">
-            <label class="text-muted font-weight-normal m-0">Shipping</label>
-            <div class="text-large"><strong>
-                <script>document.write(delivery.toFixed(2))</script>
-              </strong></div>
-          </div>
-          <div class="d-flex">
-            <div class="text-right mt-4 mr-5">
-              <label class="text-muted font-weight-normal m-0">Tax</label>
-              <div class="text-large"><strong>
-                  <script>document.write(tax.toFixed(2))</script>
-                </strong></div>
-            </div>
-            <div class="text-right mt-4">
-              <label class="text-muted font-weight-normal m-0">Total price</label>
-              <div class="text-large"><strong>
-                  <script>document.write(grand_total.toFixed(2))</script>
-                </strong></div>
-         
-              <br>
-              <b>
-                OUR SHIPPING POLICY IS:A subtotal $0 - $49.99 will be $3 shipping A subtotal $50 - $99.99 will be $6 shipping Subtotals over $100 will be charged 7% of the subtotal amount
-              </b>
-            </div>
-          </div>
-        </div>
-        <div class="float-right">
-
-          <form action="/checkout" method="GET">
-            <input type="button" class="button" value="Checkout" name="checkout"
-              onclick="location.href='./invoice.html';">
-          </form>
-        </div>
-
-      </div>
+<!-- Close the table body -->
+</tbody>
+<!-- Open a new table for the Add To Cart section -->
+<table class="table-condensed table-hover">
+<!-- Open a new form for the Add To Cart section -->
+<form action="./update_cart" method="POST">
+<script>
+    // Write HTML code to display each product in the shopping cart with its image, name, price, and a quantity input field
+    document.write(`
+      <tr>
+        <td><img src="${products[pkey][i].image}"
+              class="d-block ui-w-40 ui-bordered mr-4" alt=""></td>
+        <td>${products[pkey][i].item}</td>
+        <td>\$${products[pkey][i].price.toFixed(2)}</td>
+        <td><input type="number" value="1" min="0" max="${products[pkey][i].quantity_available}" id="qty_${pkey}_${i}" name="qty_${pkey}_${i}"></td>
+        <td><input type="submit" class="btn btn-md btn-default md-btn-flat mt-2 mr-3" value="Add To Cart"></td>
+      </tr>
+    `);
+</script>
+<!-- Close the form for the Add To Cart section -->
+</form>
+<!-- Close the table for the Add To Cart section -->
+</table>
+<!-- Display the shipping, tax, and grand total prices using JavaScript -->
+<div class="d-flex">
+  <div class="text-right mt-4 mr-5">
+    <label class="text-muted font-weight-normal m-0">Shipping</label>
+    <div class="text-large"><strong><script>document.write(delivery.toFixed(2))</script></strong></div>
+  </div>
+  <div class="d-flex">
+    <div class="text-right mt-4 mr-5">
+      <label class="text-muted font-weight-normal m-0">Tax</label>
+      <div class="text-large"><strong><script>document.write(tax.toFixed(2))</script></strong></div>
+    </div>
+    <div class="text-right mt-4">
+      <label class="text-muted font-weight-normal m-0">Total price</label>
+      <div class="text-large"><strong><script>document.write(grand_total.toFixed(2))</script></strong></div>
+      <br>
+      <b>
+        OUR SHIPPING POLICY IS: A subtotal $0 - $49.99 will be $3 shipping. A subtotal $50 - $99.99 will be $6 shipping. Subtotals over $100 will be charged 7% of the subtotal amount.
+      </b>
     </div>
   </div>
+</div>
+<!-- Display a button for the user to proceed to checkout -->
+<div class="float-right">
+  <form action="/checkout" method="GET">
+    <input type="button" class="button" value="Checkout" name="checkout" onclick="location.href='./invoice.html';">
+  </form>
+</div>
+<!-- Close the container for the shopping cart page -->
+</div>
+</div>
+</div>
 </body>
 
 </html>

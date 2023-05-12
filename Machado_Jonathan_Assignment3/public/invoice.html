@@ -1,41 +1,44 @@
+<!-- Jonathan Machado invoice.html -->
 <script src="./products.js" type="text/javascript"></script>
 <script src="/user_data.json" type="json"></script>
 <script src="./functions.js"></script>
 <script>
-  let params = (new URL(document.location)).searchParams; //takes data from querystring
-  var quantities = []; //gets quantities to store
-  if (params.has('quantity')) {
-    quantities = JSON.parse(params.get(`quantity`)); //params gets quantity from purchase, parses string into a json object
-  }
-
-  loadJSON('./get_cart', function (response) {
-    // Parsing JSON string into object
-    shopping_cart = JSON.parse(response);
-  });
-
-  function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return "";
-  }
-  // if user is not logged in, send them to login
-  if (getCookie('user_cookie') != '') {
-    var user_cookie = getCookie('user_cookie');
-    var name = user_cookie;
-  } else {
-    location.href = './login.html';
-    window.stop;
-  }
+// Retrieve data from URL search parameters
+let params = (new URL(document.location)).searchParams;
+// Initialize an empty array for quantities
+var quantities = [];
+// If the URL search parameters include 'quantity', parse the quantity data from the parameter and assign it to the 'quantities' variable
+if (params.has('quantity')) {
+quantities = JSON.parse(params.get(quantity));
+}
+// Load data from a server using the 'loadJSON' function and parse the response as JSON, assigning it to the 'shopping_cart' variable
+loadJSON('./get_cart', function (response) {
+shopping_cart = JSON.parse(response);
+});
+// Define a function to retrieve cookie data by name
+function getCookie(cname) {
+let name = cname + "=";
+let decodedCookie = decodeURIComponent(document.cookie);
+let ca = decodedCookie.split(';');
+for (let i = 0; i < ca.length; i++) {
+let c = ca[i];
+while (c.charAt(0) == ' ') {
+c = c.substring(1);
+}
+if (c.indexOf(name) == 0) {
+return c.substring(name.length, c.length);
+}
+}
+return "";
+}
+// Check for a user cookie. If found, assign it to the 'user_cookie' variable, and assign the cookie value to the 'name' variable. If not found, redirect to the login page.
+if (getCookie('user_cookie') != '') {
+var user_cookie = getCookie('user_cookie');
+var name = user_cookie;
+} else {
+location.href = './login.html';
+window.stop;
+}
 </script>
 
 
@@ -50,11 +53,13 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <title>Invoice</title>
   <style> 
+    /* Sets the text alignment and background color for the body */
     body {
         text-align: center;
         background: #e39c8a;
     }
 
+    /* Sets the font size, alignment, and margins for the h1 tag */
     h1 {
         text-align: center;
         font-size: 36px;
@@ -62,6 +67,7 @@
         margin-bottom: 20px;
     }
 
+    /* Sets the font size, alignment, margins, and text transformation for the h2 tag */
     h2 {
         text-align: center;
         font-size: 24px;
@@ -69,173 +75,175 @@
         margin-bottom: 20px;
         text-transform: uppercase;
     }
+
+    /* Sets the border radius, maximum width, margin, and transition for the img tag */
     img {
         border-radius: 70%;
         max-width: 300px;
         margin-top: 20px;
         transition: transform 0.3s ease-in-out;
     }
+
+    /* Increases the size of the image on hover */
     img:hover {
         transform: scale(1.05);
     }
-    .button {
 
-            height: 40px;
-height: 40px; 
-            height: 40px;
-height: 40px; 
-            height: 40px;
-height: 40px; 
-            height: 40px;
-            width: 150px;
-width: 150px; 
-            width: 150px;
-width: 150px; 
-            width: 150px;
-width: 150px; 
-            width: 150px;
-            font-size: 18px;
-            padding: 10px 20px;
-            background-color: rgb(4, 0, 0);
-            border: none;
-            color: #fcfafa;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-bottom: 20px;
-            font-size: 16px;
-            border-radius:6px;
-        }
+    /* Styles for the button */
+    .button {
+        height: 40px;
+        width: 150px;
+        font-size: 18px;
+        padding: 10px 20px;
+        background-color: rgb(4, 0, 0);
+        border: none;
+        color: #fcfafa;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-bottom: 20px;
+        font-size: 16px;
+        border-radius: 6px;
+    }
+
+    /* Changes the background color and text color of the button on hover */
     .button:hover {
         background-color: #020000;
         color: #fff;
     }
+
+    /* Styles for the navigation bar */
     ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.285);
-}
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.285);
+    }
 
-li {
-  float: left;
-}
+    li {
+        float: left;
+    }
 
-li a {
-  display: block;
-  color: rgb(11, 1, 1);
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
+    li a {
+        display: block;
+        color: rgb(11, 1, 1);
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
 
-li a:hover {
-  background-color: rgb(217, 206, 206);
-}
+    li a:hover {
+        background-color: rgb(217, 206, 206);
+    }
 
+    /* Adds margin to the center class */
     .center {
-      margin-top: 30px;
+        margin-top: 30px;
     }
 
+    /* Styles for the table */
     table {
-      width: 100%;
-      max-width: 600px;
-      margin: 0 auto;
-      background-color: #ffffff;
-      border-collapse: collapse;
-      margin-top: 30px;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border-collapse: collapse;
+        margin-top: 30px;
     }
 
+    /* Styles for the table headers and cells */
     th,
     td {
-      padding: 12px 15px;
-      text-align: left;
+        padding: 12px 15px;
+        text-align: left;
     }
 
     th {
-      font-size: 18px;
+        font-size: 18px;
     }
 
-
-
+    /* Styles for the footer row */
     tfoot th,
     tfoot td {
-      font-size: 18px;
-      font-weight: bold;
+        font-size: 18px;
+        font-weight: bold;
     }
 
+    /* Styles for the table row */
     .table-row {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
     }
 
+    /* Styles for the table cells in the table row */
     .table-row td {
-      flex-basis: 25%;
+        flex-basis: 25%;
     }
 
+    /* Aligns the table cells to the right in the table row */
     .table-row td.text-right {
-      text-align: right;
+        text-align: right;
     }
   </style>
 </head>
-
+<!--This is the end of the head section and the start of the body section-->
 <body>
-
+  <!--This script displays a personalized message with the user's name if it is not undefined or empty-->
   <script>
     if (name != 'undefined' && name != '') {
       document.write(`<div class="center"><h4><b>Mahalo, ${name}! Here is your invoice:</b><h4></div>`)
     }
   </script>
+  <!--This is the main table of the invoice-->
   <table class="body-wrap">
     <tbody>
       <tr>
         <td></td>
         <td class="container" width="500">
           <div class="content">
+            <!--This table holds the main content of the invoice-->
             <table class="main" width="100%" cellpadding="0" cellspacing="0">
               <tbody>
                 <tr>
                   <td class="content-wrap aligncenter">
                     <table width="100%" cellpadding="0" cellspacing="0">
+                      <!--This div and table display the items, quantities, prices, and extended prices of the products in the shopping cart-->
                       <div class="row table-row">
                         <table class="table table-striped">
                           <thead>
-                          <tbody>
                             <tr>
                               <th style="width:10%">Item</th>
                               <th class="text-right" style="width:15%">Quantity</th>
                               <th class="text-right" style="width:15%">Price</th>
                               <th class="text-right" style="width:30%">Extended Price</th>
                             </tr>
-                            </thead>
+                          </thead>
+                          <tbody>
+                            <!--This script calculates the subtotal and displays the product details in the invoice-->
                             <script>
-                              // Compute sub-total
                               var subtotal = 0;
-
-                              for (let pkey in shopping_cart) { //same as cart code example
+                              for (let pkey in shopping_cart) { 
                                 for (let i in shopping_cart[pkey]) {
                                   let quantities = shopping_cart[pkey][i];
                                   if (quantities > 0) {
-                                    // product row
                                     extended_price = quantities * products[pkey][i].price
                                     subtotal += extended_price;
                                     document.write(`
-                                  <tr>
-			                              <td>${products[pkey][i].item}</td>
-			                              <td class="text-right">${quantities}</td>
-			                              <td class="text-right">$${products[pkey][i].price.toFixed(2)}</td>
-			                              <td class="text-right">$${extended_price.toFixed(2)}</td>
-                                  </tr>
-                                  `);
+                                      <tr>
+                                        <td>${products[pkey][i].item}</td>
+                                        <td class="text-right">${quantities}</td>
+                                        <td class="text-right">$${products[pkey][i].price.toFixed(2)}</td>
+                                        <td class="text-right">$${extended_price.toFixed(2)}</td>
+                                      </tr>
+                                    `);
                                   }
                                 }
                               };
-                              // Compute tax
+// Define tax rate and calculate tax amount
                               var tax_rate = 0.05;
                               var tax = tax_rate * subtotal;
-
-                              // Compute delivery
+// Calculate delivery fee based on subtotal
                               if (subtotal <= 49.99) {
                                 delivery = 3;
                               }
@@ -243,15 +251,16 @@ li a:hover {
                                 delivery = 6;
                               }
                               else {
-                                delivery = 0.07 * subtotal; // 7% of subtotal
+                                delivery = 0.07 * subtotal;
                               }
-                              // Compute grand total
+                               // Calculate grand total by adding subtotal, tax, and delivery fee
                               var grand_total = subtotal + tax + delivery;
-
+// Display subtotal, tax, delivery fee, and grand total on the invoice
+// Display button for sending the invoice via email
                             </script>
                           </tbody>
                         </table>
-
+                        
                         <div class="col-xs-6 text-right pull-right invoice-total">
                           <p>Subtotal : $
                             <script>document.write(subtotal.toFixed(2));</script>

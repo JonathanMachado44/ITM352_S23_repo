@@ -1,24 +1,48 @@
+<!-- Jonathan Machado Rgistration Page-->
 <script src="/products.js" type="text/javascript"></script>
-
 <script>
-  //get query string
-  let params = (new URL(document.location)).searchParams;
-  //check if username is valid and redirect to invoice if ok
-  window.onload = function () {
-    if (params.has('registration_errors')) {
-      var errors = JSON.parse(params.get('registration_errors'));
-      let err_str = '';
-      for (err in errors) {
-        err_str += errors[err] + '\n';
-        document.getElementById(`${err}_label`).innerHTML = `<font color="red">${errors[err]}</font>`;
-      }
-      alert(err_str);
+// This code reads the URL parameters and performs some actions based on the values.
+
+// Get the URL parameters
+let params = (new URL(document.location)).searchParams;
+
+// When the page has loaded...
+window.onload = function () {
+
+  // If the URL contains the parameter 'registration_errors'...
+  if (params.has('registration_errors')) {
+
+    // Get the value of the parameter 'registration_errors' and parse it as JSON
+    var errors = JSON.parse(params.get('registration_errors'));
+
+    // Create an empty string to hold the error messages
+    let err_str = '';
+
+    // For each error in the errors object...
+    for (err in errors) {
+
+      // Add the error message to the error string
+      err_str += errors[err] + '\n';
+
+      // Set the label of the input element with the id that matches the error key
+      // to display the error message in red font color
+      document.getElementById(`${err}_label`).innerHTML = `<font color="red">${errors[err]}</font>`;
     }
-    if (params.has('email')) { //params searches 'email' and changes the email and fullname value textbox
-        email.value = params.get('email');
-        fullname.value = params.get('fullname');
-      }
+
+    // Display a popup alert with all of the error messages
+    alert(err_str);
   }
+
+  // If the URL contains the parameters 'email' and 'fullname'...
+  if (params.has('email')) { 
+
+    // Set the value of the input element with the id 'email' to the value of the 'email' parameter
+    email.value = params.get('email');
+
+    // Set the value of the input element with the id 'fullname' to the value of the 'fullname' parameter
+    fullname.value = params.get('fullname');
+  }
+}
 </script>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,95 +55,118 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <title>Registration</title>
   <style>
-    body {
-         text-align: center;
-         background: #e39c8a;
-     }
-     h1 {
-         text-align: center;
-         font-size: 36px;
-         margin-top: 80px;
-         margin-bottom: 20px;
-     }
-     h2 {
-         text-align: center;
-         font-size: 24px;
-         margin-top: 0;
-         margin-bottom: 20px;
-         text-transform: uppercase;
-     }
-     img {
-         border-radius: 70%;
-         max-width: 300px;
-         margin-top: 20px;
-         transition: transform 0.3s ease-in-out;
-     }
-     img:hover {
-         transform: scale(1.05);
-     }
-     .button {
-             height: 40px;
-             width: 150px;
-             font-size: 18px;
-             padding: 10px 20px;
-             background-color: #fff;
-             border: none;
-             color: #070100;
-             cursor: pointer;
-             transition: background-color 0.3s ease;
-             margin-bottom: 20px;
-             font-size: 16px;
-             border-radius:6px;
-         }
-     .button:hover {
-         background-color: #020000;
-         color: #fff;
-     }
-     ul {
-   list-style-type: none;
-   margin: 0;
-   padding: 0;
-   overflow: hidden;
-   background-color: rgba(0, 0, 0, 0.285);
- }
- 
- li {
-   float: left;
- }
- 
- li a {
-   display: block;
-   color: rgb(255, 255, 255);
-   text-align: center;
-   padding: 14px 16px;
-   text-decoration: none;
- }
- 
- li a:hover {
-   background-color: rgb(217, 206, 206);
- }
- .form-outline {
-         position: relative;
-         margin-bottom: 20px;
-     }
- 
-     .form-label {
-         position: center;
-         top: -10px;
-         left: 20px;
-         padding: 0 5px;
-         color: #040100;
-         font-size: 14px;
-     }
-     .form-control {
-         width: 50%;
-         padding: 10px;
-         border: none;
-         border-bottom: 1px solid #e39c8a;
-         margin-bottom: 20px;
-         font-size: 16px;
-         border-radius:6px;
-     }
+/* Sets the text alignment to center and sets the background color to a light orange */
+body {
+  text-align: center;
+  background: #e39c8a;
+}
+
+/* Styles for the main header */
+h1 {
+  text-align: center;
+  font-size: 36px;
+  margin-top: 80px;
+  margin-bottom: 20px;
+}
+
+/* Styles for the secondary header */
+h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+/* Styles for images */
+img {
+  border-radius: 70%;
+  max-width: 300px;
+  margin-top: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Styles for image hover effects */
+img:hover {
+  transform: scale(1.05);
+}
+
+/* Styles for buttons */
+.button {
+  height: 40px;
+  width: 150px;
+  font-size: 18px;
+  padding: 10px 20px;
+  background-color: #fff;
+  border: none;
+  color: #070100;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
+  font-size: 16px;
+  border-radius: 6px;
+}
+
+/* Styles for button hover effects */
+.button:hover {
+  background-color: #020000;
+  color: #fff;
+}
+
+/* Styles for unordered lists */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.285);
+}
+
+/* Styles for list items */
+li {
+  float: left;
+}
+
+/* Styles for links within list items */
+li a {
+  display: block;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Styles for link hover effects */
+li a:hover {
+  background-color: rgb(217, 206, 206);
+}
+
+/* Styles for form outlines */
+.form-outline {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+/* Styles for form labels */
+.form-label {
+  position: center;
+  top: -10px;
+  left: 20px;
+  padding: 0 5px;
+  color: #040100;
+  font-size: 14px;
+}
+
+/* Styles for form controls */
+.form-control {
+  width: 50%;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #e39c8a;
+  margin-bottom: 20px;
+  font-size: 16px;
+  border-radius: 6px;
+}
  </style>
 </head>
 <br>
@@ -129,6 +176,7 @@
 <br>
 <br>
 <br>
+
 <body>
   <section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
@@ -140,57 +188,63 @@
               <div class="mb-md-5 mt-md-4 pb-5">
                 <h2 class="text-uppercase text-center mb-5">Create an account</h2>
 
+                <!-- This is the registration form, which sends data to the ./register endpoint using the POST method -->
                 <form name="register_form" action="./register" method="POST">
 
+                  <!-- This input field asks the user for their email -->
                   <div class="form-outline mb-4">
                     <input placeholder="Email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name="email" id="email"
                       class="form-control form-control-lg" />
                     <label class="form-label" id="email_label" for="email"></label>
                   </div>
 
+                  <!-- This input field asks the user for their full name -->
                   <div class="form-outline mb-4">
                     <input placeholder="Full Name" type="text" name="fullname" id="fullname"
                       class="form-control form-control-lg" />
                     <label class="form-label" id="fullname_label" for="fullname"></label>
                   </div>
 
+                  <!-- This input field asks the user for their password -->
                   <div class="form-outline mb-4">
                     <input placeholder="Password" name="password" type="password" id="password"
                       class="form-control form-control-lg" />
                     <label class="form-label" id="password_label" for="password"></label>
                   </div>
+
+                  <!-- This script checks that the password and repeated password match and that the password meets certain criteria -->
                   <script>
-                    // Add an event listener for form submission
                     document.querySelector('form[name="register_form"]').addEventListener('submit', function (event) {
                       const password = document.getElementById('password').value;
                       const repeatPassword = document.getElementById('repeat_password').value;
-            
-                      // Check if password and repeat password match
+
                       if (password !== repeatPassword) {
                         alert('Passwords do not match');
-                        event.preventDefault(); // Prevent form submission
+                        event.preventDefault();
                         return;
                       }
-                      //IR2
-                      // Check if password meets the required criteria
                       const passwordPattern = /(?=.*\d)(?=.*\W)[\w\W]{8,}/;
                       if (!passwordPattern.test(password)) {
                         alert('Password must be at least 8 characters long and contain at least one digit and one special character');
-                        event.preventDefault(); // Prevent form submission
+                        event.preventDefault();
                       }
                     });
                   </script>
+
+                  <!-- This input field asks the user to repeat their password -->
                   <div class="form-outline mb-4">
                     <input placeholder="Repeat your password" name="repeat_password" type="password"
                       id="repeat_password" class="form-control form-control-lg" />
                     <label class="form-label" id="repeat_password_label" for="repeat_password"></label>
                   </div>
 
+                  <!-- This button submits the registration form -->
                   <div class="d-flex justify-content-center">
                     <button type="submit" class="button">Register</button>
                   </div>
 
-                  <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="login.html"
+                  <!-- This link redirects the user to the login page if they already have an account -->
+                  <p class="text-center text-muted mt-5 mb-0">have account already? <a href="login.html"
                       class="fw-bold text-body"><u>Login here</u></a></p>
 
                 </form>

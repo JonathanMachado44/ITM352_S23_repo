@@ -1,86 +1,116 @@
+<!-- Jonathan Machado index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Import the products.js script -->
   <script src="./products.js"></script>
+  <!-- Import the functions.js script -->
   <script src="./functions.js"></script>
   <script>
-  var products_data; // asst3 examples
-  loadJSON('get_products_data', function(response) {
-       // Parsing JSON string into object
-       products_data = JSON.parse(response);
-  });
-  var shopping_cart;
-      var total = 0;
-  loadJSON('./get_cart', function (response) {
-            // Parsing JSON string into object
-            shopping_cart = JSON.parse(response);
-            for (pk in shopping_cart) {
-                total += shopping_cart[pk].reduce((a, b) => a + b);
-            }
-        });
-  var this_product_key = ''
+    // Declare a variable to hold the products data
+    var products_data;
+    // Load the products data from the server using the loadJSON function from functions.js
+    loadJSON('get_products_data', function(response) {
+      // Parse the response and store it in the products_data variable
+      products_data = JSON.parse(response);
+    });
+    // Declare a variable to hold the shopping cart data
+    var shopping_cart;
+    // Declare a variable to hold the total cost of items in the shopping cart
+    var total = 0;
+    // Load the shopping cart data from the server using the loadJSON function from functions.js
+    loadJSON('./get_cart', function (response) {
+      // Parse the response and store it in the shopping_cart variable
+      shopping_cart = JSON.parse(response);
+      // Iterate over the items in the shopping cart and add up their costs to get the total
+      for (pk in shopping_cart) {
+        total += shopping_cart[pk].reduce((a, b) => a + b);
+      }
+    });
+    // Declare a variable to hold the product key of the current product being viewed
+    var this_product_key = ''
   </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <title>IndexPage</title>
- <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!-- This line sets the title of the page to "IndexPage" -->
+<title>IndexPage</title>
+<!-- This block of CSS styles the page elements -->
+<style>
+    /* This rule sets the text alignment for the entire page to center */
     body {
         text-align: center;
         background: #e39c8a;
     }
+
+    /* This rule styles the h1 heading element */
     h1 {
         font-size: 80px;
         margin-top: 80px;
         margin-bottom: 40px;
     }
 
+    /* This rule styles the h2 heading element */
     h2 {
         font-size: 24px;
         margin-top: 0;
         margin-bottom: 40px;
     }
 
+    /* This rule styles the image element */
     img {
         border-radius: 70%;
         max-width: 300px;
         margin-top: 20px;
         transition: transform 0.3s ease-in-out;
     }
+
+    /* This rule applies when the image is hovered over */
     img:hover {
         transform: scale(1.05);
     }
 
+    /* This rule styles the h3 heading element */
     h3 {
         font-size: 18px;
         margin-top: 20px;
         margin-bottom: 80px;
     }
-    .fade-in-text {
-  font-family: Arial;
-  font-size: 150px;
-  animation: fadeIn 2s;
-}
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
-.fade-in-image { animation: fadeIn 2s; }
 
+    /* This rule defines a fade-in animation for the text elements */
+    .fade-in-text {
+        font-family: Arial;
+        font-size: 150px;
+        animation: fadeIn 2s;
+    }
+
+    /* This rule defines a fade-in animation for the image element */
+    .fade-in-image {
+        animation: fadeIn 2s;
+    }
+
+    /* This keyframes rule defines the animation that the .fade-in-text class uses */
+    @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
 </style>
+<!-- This is the start of the page body -->
 </head>
-<div class="fade-in-text">
-<h1>Jon's Cat Care Shop</h1>
-</div>
 <body>
-  <div class="fade-in-image">
-  <a href="./shop.html?"><img id="logo" src="./images/indexcat.jpg" height="50%" width="50%"></a>
+<!-- This div contains the h1 heading wrapped in a div with a fade-in animation class -->
+<div class="fade-in-text">
+    <h1>Jon's Cat Care Shop</h1>
 </div>
-  <div class="fade-in-text">
-  <h3>Click the cat to enter the shop!</h3>
+<!-- This div contains the image wrapped in a div with a fade-in animation class, and it is also a link to the shop.html page -->
+<div class="fade-in-image">
+    <a href="./shop.html?"><img id="logo" src="./images/indexcat.jpg" height="50%" width="50%"></a>
+</div>
+<!-- This div contains the h3 heading wrapped in a div with a fade-in animation class -->
+<div class="fade-in-text">
+    <h3>Click the cat to enter the shop!</h3>
 </div>
 </body>
 </html>
